@@ -20,6 +20,7 @@ include('siplan_connection_db.php');
 $cnx = new conectar();
 $cnx->inicializar("localhost","siplan_consultas","siplan",$bd);
 $conexion=$cnx->conectarse();
+$conexion->query("SET NAMES utf8");
 $usuario = $_POST['usuario'];
 $cve=md5($_POST['clave']);
 $consulta = "SELECT count(*) FROM usuarios WHERE usuario = '$usuario' AND password = '$cve'";
@@ -36,7 +37,8 @@ $hora = date("H:i");
 $ipadd = $_SERVER['REMOTE_ADDR'];
 $iduser = $_SESSION['id_usuario_v3'];
 $conexion->query("INSERT INTO historial (id_usuario,fecha,hora,evento,ipaddress) VALUES ('$iduser','$fecha','$hora','inicio de sesion','$ipadd')");
+
 $conexion->close();
 $_SESSION['iniciar'] = md5("opus relinque");
-header('Location:main.php');
+header('Location:../main.php');
 }
