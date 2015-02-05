@@ -12,6 +12,7 @@ session_cache_expire();
 session_destroy();
 session_unset();
 unset($_SESSION);
+unset($_POST);
 header("Expires: Thu, 27 Mar 1980 23:59:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s")."GMT");
 header("Cache-Control: no-cache, must-revalidate");
