@@ -1,6 +1,6 @@
 <ul id="wp-admin-bar-root-default" class="ab-top-menu">
 <li id="wp-admin-bar-wp-logo" class="menupop"><a class="ab-item"  aria-haspopup="true" href="main.php" title="siplan"><span class="ab-icon"></span></a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-wp-logo-default" class="ab-submenu">
-		<li id="wp-admin-bar-about"><a class="ab-item"  href="main.php?token=<?php echo md5(35); ?>">Acerca del siplan</a>		</li></ul><ul id="wp-admin-bar-wp-logo-external" class="ab-sub-secondary ab-submenu">
+		<li id="wp-admin-bar-about"><a class="ab-item"  href="main.php?token=<?php echo md5(40); ?>">Acerca del siplan</a>		</li></ul><ul id="wp-admin-bar-wp-logo-external" class="ab-sub-secondary ab-submenu">
 		<li id="wp-admin-bar-wporg"><a class="ab-item"  href="http://www.zacatecas.gob.mx/" target="_blank">Gobierno del Estado</a>		</li>
 		<li id="wp-admin-bar-documentation"><a class="ab-item"  href="http://upla.zacatecas.gob.mx/" target="_blank">Unidad de Planeación</a>		</li>
 		</ul></div>		</li>
