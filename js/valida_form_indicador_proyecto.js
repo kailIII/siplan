@@ -1,3 +1,4 @@
+//funcion para validar el formulario del indicador del proyecto
 function valida(){
 	if(document.getElementById('fin_objetivo').value == ""){
 		alert("el objetivo del fin esta vac\u00edo");
