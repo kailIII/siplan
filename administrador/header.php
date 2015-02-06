@@ -46,6 +46,12 @@ $('#example').dataTable(
 "sSearch": "Buscar",
 "sInfoFiltered": "(filtrado de _MAX_ registros totales)"
 }});});
+
+function cambia_dep(a){
+  if(a != 0){
+    document.cambio_dep.submit();
+  }
+}
 </script>
 <link href="estilo/header.css" rel="stylesheet" type="text/css">
 <link href="estilo/stylo.css" rel="stylesheet" type="text/css">
