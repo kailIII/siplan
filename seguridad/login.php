@@ -20,6 +20,7 @@ include('siplan_connection_db.php');
 $cnx = new conectar();
 $cnx->inicializar("localhost","siplan_consultas","siplan",$bd);
 $conexion=$cnx->conectarse();
+//Se realiza unaconsulta para asignarle a la base de datos la codificación a utilizar
 $conexion->query("SET NAMES utf8");
 $usuario = $_POST['usuario'];
 $cve=md5($_POST['clave']);
