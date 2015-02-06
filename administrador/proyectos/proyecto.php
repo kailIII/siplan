@@ -3,29 +3,28 @@ $consulta_marco =$conexion->query("SELECT count(*)
 FROM marco_estrategico WHERE id_dependencia = ".$_SESSION['id_dependencia_v3']." AND ejercicio = ".$_SESSION['ejercicio_v3']);
 $res_marco = $consulta_marco->fetch_array();
 if($res_marco[0]==0){
-	echo "<script type='text/javascript'>
-	   alert('Para aprobar sus proyectos primero debe completar el Marco Estrat\u00e9gico');
-	</script>";
+echo "<script type='text/javascript'>
+alert('Para aprobar sus proyectos primero debe completar el Marco Estrat\u00e9gico');
+</script>";
 }
 $consulta_marco->free();
 ?>
 <script type="text/JavaScript">
 function eliminar_proyecto(a){
-	r=confirm("\u00bf Desea eliminar el proyecto?");
-	if(r){
-		location.href="main.php?token=<?php echo md5(27); ?>&id_proyecto="+a;
-	}
-
+r=confirm("\u00bf Desea eliminar el proyecto?");
+if(r){
+location.href="main.php?token=<?php echo md5(27); ?>&id_proyecto="+a;
+}
 }
 function ponderacion_full(){
-	alert("Ponderaci\u00f3n completa, elimine o edite otro(s) proyecto(s)")
+alert("Ponderaci\u00f3n completa, elimine o edite otro(s) proyecto(s)")
 }
 </script>
 <div class="wrap">
 <h2><span class="glyphicon glyphicon-th-list"></span>&nbsp;Proyectos</h2>
 <br>
 <ul class="nav nav-pills">
-  <li><a href="main.php?token=<?php print(md5(1));?>"><span class="glyphicon glyphicon-edit"></span>&nbsp;Marco Estrategico </a></li>
+<li><a href="main.php?token=<?php print(md5(1));?>"><span class="glyphicon glyphicon-edit"></span>&nbsp;Marco Estrategico </a></li>
  <?php
    $conulta_pondera_proyectos = "SELECT sum(ponderacion) FROM proyectos WHERE id_dependencia = ".$_SESSION['id_dependencia_v3'];
    $EjecutarConsulta = $conexion->query($conulta_pondera_proyectos);
@@ -63,7 +62,7 @@ function ponderacion_full(){
 	<td width="8%"><div align="center">Indicadores</div></td>
 	<td width="8%"><div align="center">Componentes</div></td>
 	<td width="7%"><div align="center">Info.</div></td>
-	<td width="7%"><div align="center">Aprobar</div></td>
+	<td width="7%"><div align="center">Apr/Des</div></td>
 	<td width="7%"><div align="center">Editar</div></td>
 	<td width="7%"><div align="center">Eliminar</div></td>
   </tr>
@@ -147,7 +146,7 @@ $consulta_indicadores =$conexion->query("SELECT count(*) FROM indicadores_proyec
     	echo "<td valign='middle'><div align='center'><span class='glyphicon glyphicon-check'></div></td>";
     	break;
     	case 2:
-    	echo "<td valign='middle'><div align='center'><span class='glyphicon glyphicon-ok-circle'></div></td>";
+    	echo "<td valign='middle'><div align='center'><a href='main.php?token=".md5(91)."&id_proyecto=".$id_proyecto."'><span class='glyphicon glyphicon-ban-circle'></a></div></td>";
     	break;
     	case 3:
     	$status_proyecto=0;
