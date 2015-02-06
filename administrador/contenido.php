@@ -1,5 +1,4 @@
 <?php
-
 if(!isset($_SESSION)){
 ?>
 <script type="text/javascript">
