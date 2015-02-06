@@ -1,12 +1,9 @@
 <?php
 /**
-
-* @package    SIPLAN
-* @subpackage Principal
-* @author   José Martín Gamboa Murillo
-
+* @package  SIPLAN
+* @version  4.0.1
+* @author   José Martín Gamboa Murillo -
 */
-
 session_start();
 session_cache_expire();
 session_destroy();
@@ -19,7 +16,6 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
 session_start();
 $_SESSION['iniciar'] = md5("labor vincit omnia");
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -69,7 +65,9 @@ echo "<div class='alert alert-dismissable alert-danger'>
 <strong>&nbsp;<span class='glyphicon glyphicon-remove-circle'>&nbsp;Error: </strong> Su nombre de usuario o contraseña son incorrectos,
 si el error persiste, comuniquese con el área de informática de la UPLA.</div>";
 break;}}?></div></div></div><br><br><br><br></div><br><br>
-<p class="text-muted">Unidad de Planeaci&oacute;n - Gobierno del Estado de Zacatecas 2010-2016</p>
+<p class="text-muted">&nbsp;&nbsp;Unidad de Planeaci&oacute;n</p>
+<p class="text-muted">&nbsp;&nbsp;Laboratorio de Software Libre</p>
+<p class="text-muted">&nbsp;&nbsp;Gobierno del Estado de Zacatecas 2010-2016</p>
 <script type="text/javascript" src="js/validar_login.js"></script>
 </body>
 </html>
