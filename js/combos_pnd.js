@@ -1,3 +1,4 @@
+//funcion para cargar los combos del plan nacional de desarrollo
 function llena_combo_objetivo(pnd_eje){
 	 var id_pnd_eje = pnd_eje;
 
