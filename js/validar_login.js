@@ -1,3 +1,4 @@
+//funcion para validar el formulario de entrada
 function validar(){
 
 var usuario = document.getElementById('usuario').value;
