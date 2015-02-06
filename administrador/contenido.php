@@ -120,12 +120,8 @@ location.href="index.html";
 		case md5(34):
 		include("administrador/obras/nuevo_origen.php");
 		break;
-        case md5(35):
-        include("about.php");
-        break;
-		case md5(39):
-		include("administrador/obras/editar_obra_fuente.php");
-		break;
+
+
 		/*---------------------estfin----------------------*/
 		case md5(35):
 		include("administrador/actualiza_edofin.php");
@@ -139,6 +135,21 @@ location.href="index.html";
 		case md5(38):
 		include("administrador/proyectos/inactiva_proyecto.php");
 		break;
+
+
+
+       case md5(39):
+		include("administrador/obras/editar_obra_fuente.php");
+		break;
+
+
+          case md5(40):
+        include("about.php");
+        break;
+
+          case md5(41):
+        include("rechazar_proyecto.php");
+        break;
         case md5(90):
 		include("administrador/proyectos/info_componente.php");
 		break;
