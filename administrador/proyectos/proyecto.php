@@ -1,6 +1,5 @@
 <?php
-$consulta_marco =$conexion->query("SELECT count(*)
-FROM marco_estrategico WHERE id_dependencia = ".$_SESSION['id_dependencia_v3']." AND ejercicio = ".$_SESSION['ejercicio_v3']);
+$consulta_marco =$conexion->query("SELECT count(*) FROM marco_estrategico WHERE id_dependencia = ".$_SESSION['id_dependencia_v3']." AND ejercicio = ".$_SESSION['ejercicio_v3']);
 $res_marco = $consulta_marco->fetch_array();
 if($res_marco[0]==0){
 echo "<script type='text/javascript'>
@@ -39,11 +38,8 @@ alert("Ponderaci\u00f3n completa, elimine o edite otro(s) proyecto(s)")
  <?php } $EjecutarConsulta->free();
     unset($EjecutarCosnulta);
     unset($conulta_pondera_proyectos);
-
     ?>
-
-
-  <li><a href="rpts/general_proyectos.php" target="_blank"><span class="glyphicon glyphicon-print"></span>&nbsp;Imprimir</a></li>
+<li><a href="rpts/general_proyectos.php" target="_blank"><span class="glyphicon glyphicon-print"></span>&nbsp;Imprimir</a></li>
   <li><a href="rpts/general_proyectos_xls.php" target="_blank"><span class="glyphicon glyphicon-export"></span>&nbsp;Exportar a XLS</a></li>
 </ul>
 <div class="panel panel-default">
