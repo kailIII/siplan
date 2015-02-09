@@ -106,7 +106,7 @@ $consulta_poaorigen = $conexion->query("SELECT s06c_proyec,s07c_partid,s08c_orig
 		$marginacion  = $r_loc["id_marginacion"];
 		echo "<td>".$r_loc["id_finanzas"]."</td>\n";
 		unset($r_loc);
-		mysql_free_result($cons_localidades);
+		$cons_localidades->free();
 		$f_i = $r_poa02["fecha_inicio"];
 		$f_f = $r_poa02["fecha_fin"];
 		$m_i = substr($f_i,5,2);
@@ -205,10 +205,11 @@ $consulta_poaorigen = $conexion->query("SELECT s06c_proyec,s07c_partid,s08c_orig
 	<td>0</td>\n
     <td>1</td>\n";
         unset($r_poa02);
-        mysql_free_result($consulta_poa02);
+        $consulta_poa02->free();
 	echo "<td>".$region."</td>\n";
-	$cons_margin = mysql_query("SELECT descripcion from marginacion where id_marginacion = ".$marginacion,$siplan_data_conn) or die (mysql_error());
-	echo "<td>".mysql_result($cons_margin,0)."</td>\n
+	$cons_margin = $conexion->query("SELECT descripcion from marginacion where id_marginacion = ".$marginacion);
+	$r_mar = $cons_margin->fetch_array();
+    echo "<td>".$_mar[0]."</td>\n
 	<td>1</td>\n
     <td>1</td>\n
     <td>".date('d/m/y')."</td>\n
@@ -218,17 +219,17 @@ $consulta_poaorigen = $conexion->query("SELECT s06c_proyec,s07c_partid,s08c_orig
     <td>698</td>\n
     <td>".date('d/m/y')."</td>\n
     ";echo "</tr>\n";
-mysql_free_result($cons_margin);
+    $cons_margin->free();
 
 //termina el while
 
 }
 	unset($id_oficio);
         unset($d_of);
-	mysql_free_result($detalle_oficio);
+	$detalle_oficio->free();
 }
 unset($r_of);
-mysql_free_result($oficios);
+$oficios->free();
 echo "</table>";
 }
 ?>
