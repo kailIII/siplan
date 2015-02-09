@@ -1,33 +1,68 @@
 <?php
+/*
+se agrega una clase de conexion mas nueva para este archivo
+
+class conectar{
+    //Se crean las variables a utilizar en la clase de la conexión
+	protected $servidor;
+	protected $usuario;
+	protected $clave;
+	protected $bd;
+	protected $conexion;
+    protected $error = "Error en la Conexión a la Base de Datos, favor de contactar al webmaster";
+
+    //Se inicializan las variables para la conexión a la base de datos
+    function inicializar($h,$u,$p,$b){
+     $this->servidor = $h;
+     $this->usuario = $u;
+     $this->clave = $p;
+     $this->bd = $b;
+    }
+
+    //Se realiza la conexión y se regresa el recurso ocn la conexión o con el error
+	function conectarse(){
+     $this->conexion = new mysqli($this->servidor,$this->usuario,$this->clave,$this->bd);
+    if ($this->conexion->connect_errno) {
+        return $this->error;
+      }else{return $this->conexion;}
+
+    }
+}
+
+
+*/
+
+
 if($_SESSION['id_perfil_v3']==1){
 echo "<table  border='1' cellspacing='0' cellpadding='0'>\n";
-$oficios = mysql_query("select id_oficio from oficio_aprobacion where estatus_sefin = 0 and tipo = 0",$siplan_data_conn) or die (mysql_error());
-while($r_of = mysql_fetch_assoc($oficios)){
+$oficios = $conexion->query("select id_oficio from oficio_aprobacion where estatus_sefin = 0 and tipo = 0");
+while($r_of = $oficios->fetch_assoc()){
 $id_oficio = $r_of['id_oficio'];
-$detalle_oficio = mysql_query("SELECT id_poa02 FROM detalle_oficio WHERE id_oficio = ".$id_oficio,$siplan_data_conn);
-while($d_of = mysql_fetch_assoc($detalle_oficio)){
+$detalle_oficio =$conexion->query("SELECT id_poa02 FROM detalle_oficio WHERE id_oficio = ".$id_oficio);
+while($d_of = $detalle_oficio->fetch_assoc()){
             echo "<tr>\n";
-		$consulta_poa02 = mysql_query("select * from obras where id_obra = ".$d_of["id_poa02"],$siplan_data_conn) or die (mysql_error());
-                $r_poa02 = mysql_fetch_assoc($consulta_poa02);
-		$consulta_deps = mysql_query("SELECT id_dependencia, id_sector FROM dependencias WHERE id_dependencia = ".$r_poa02["id_dependencia"],$siplan_data_conn)or die (mysql_error);
-		$r_dep = mysql_fetch_assoc($consulta_deps);
+		$consulta_poa02 = $conexion->query("select * from obras where id_obra = ".$d_of["id_poa02"]);
+        $r_poa02 = $consulta_poa02->fetch_assoc();
+
+    $consulta_deps = $conexion->query("SELECT id_dependencia, id_sector FROM dependencias WHERE id_dependencia = ".$r_poa02["id_dependencia"]);
+		$r_dep = $consulta_deps->fetch_assoc();
 		$sector = $r_dep['id_sector'];
 		$dependencia = $r_dep['id_dependencia'];
 		unset($r_dep);
-                mysql_free_result($consulta_deps);
+                $consulta_deps->free();
                 echo "<td>".$sector."</td>\n";
 		echo "<td>".$dependencia."</td>\n";
 		$obra =  $r_poa02['obra'];
-		$consulta_poaorigen = mysql_query("SELECT s06c_proyec,s07c_partid,s08c_origen,s11c_compon,s25c_accion from poa02_origen where id_poa02 = ".$obra,$siplan_data_conn) or die (mysql_error());
-		$r_poa02_o = mysql_fetch_assoc($consulta_poaorigen);
+$consulta_poaorigen = $conexion->query("SELECT s06c_proyec,s07c_partid,s08c_origen,s11c_compon,s25c_accion from poa02_origen where id_poa02 = ".$obra);
+		$r_poa02_o = $consulta_poaorigen->fetch_assoc();
 		$s06c_proyec = $r_poa02_o['s06c_proyec'];
 		$s07c_partid = $r_poa02_o['s07c_partid'];
 		$s08c_origen = $r_poa02_o['s08c_origen'];
 		$s11c_compon = $r_poa02_o['s11c_compon'];
 		$s25c_accion = $r_poa02_o['s25c_accion'];
                 unset($r_poa02_o);
-                mysql_free_result($consulta_poaorigen);
-                $consulta_edosfin = mysql_query("SELECT s03c_objeti,s04c_progra,s05c_subpro
+                $consulta_poaorigen->free();
+                $consulta_edosfin = $conexion->query("SELECT s03c_objeti,s04c_progra,s05c_subpro
 		FROM estados_financieros
 		where
 		s01c_sector = '$sector' and
@@ -36,43 +71,38 @@ while($d_of = mysql_fetch_assoc($detalle_oficio)){
 		s07c_partid = '$s07c_partid' and
 		s08c_origen = '$s08c_origen' and
 		s11c_compon = '$s11c_compon' and
-		s25c_accion = '$s25c_accion'",$siplan_data_conn) or die (mysql_error());
-		$r_edofin = mysql_fetch_assoc($consulta_edosfin);
+		s25c_accion = '$s25c_accion'");
+		$r_edofin = $consulta_edosfin->fetch_assoc();
 		echo "<td>".$r_edofin["s03c_objeti"]."</td>\n";
 		echo "<td>".$r_edofin["s04c_progra"]."</td>\n";
 		echo "<td>".$r_edofin["s05c_subpro"]."</td>\n";
-                unset($r_edofin);
-                mysql_free_result($consulta_edosfin);
-		$consulta_proyecto = mysql_query("SELECT no_proyecto,nombre FROM proyectos WHERE id_proyecto = ".$r_poa02['id_proyecto'], $siplan_data_conn) or die (mysql_error());
-		$r_pro = mysql_fetch_assoc($consulta_proyecto);
+        unset($r_edofin);
+        $consulta_edosfin->free();
+		$consulta_proyecto = $conexion->query("SELECT no_proyecto,nombre FROM proyectos WHERE id_proyecto = ".$r_poa02['id_proyecto']);
+		$r_pro = $consulta_proyecto->fetch_assoc();
 		echo "<td>".$r_pro['no_proyecto']."</td>\n";
 		echo "<td>".$s11c_compon."</td>\n";
 		echo "<td>".$s25c_accion."</td>\n";
 		echo "<td>".$r_poa02['consxdep']."</td>\n";
 		echo "<td>".$obra."</td>\n<td>0</td>\n<td>&nbsp;</td>\n";
 		unset($r_pro);
-                mysql_free_result($consulta_proyecto);
+        $consulta_proyecto->free();
 		echo "<td>".$r_poa02['descripcion']."</td>\n";
 		$ompio = $r_poa02["municipio"];
-
-
-
-
-                $cons_mpio_fin = mysql_query("select id_municipio from municipios where id_finanzas = ".$ompio,$siplan_data_conn) or die (mysql_error());
-                $ompio = mysql_result($cons_mpio_fin,0);
-mysql_free_result($cons_mpio_fin);
-
-
-		$cons_mpios = mysql_query("SELECT id_finanzas,id_reg_finanzas from municipios where id_municipio = ".$ompio,$siplan_data_conn)or die (mysql_error());
-		$rmpio = mysql_fetch_assoc($cons_mpios);
+        $cons_mpio_fin = $conexion->query("select id_municipio from municipios where id_finanzas = ".$ompio);
+        $ompio_arr = $cons_mpio_fin->fetch_array();
+        $ompio = $ompio_arr[0];
+        $cons_mpio_fin->free();
+        $cons_mpios = $conexion->query("SELECT id_finanzas,id_reg_finanzas from municipios where id_municipio = ".$ompio);
+		$rmpio = $cons_mpios->fetch_assoc();
 		$municipio =  $rmpio["id_finanzas"];
 		$region = $rmpio["id_reg_finanzas"];
-                unset($rmpio);
-                mysql_free_result($cons_mpios);
-                echo "<td>".$municipio."</td>\n";
-		$cons_localidades = mysql_query("SELECT id_finanzas,id_marginacion from localidades
-		where id_finanzas = ".$r_poa02["localidad"]." AND id_municipio = ".$ompio,$siplan_data_conn) or die (mysql_error());
-		$r_loc = mysql_fetch_assoc($cons_localidades);
+        unset($rmpio);
+        $cons_mpios->free();
+        echo "<td>".$municipio."</td>\n";
+		$cons_localidades = $conexion->query("SELECT id_finanzas,id_marginacion from localidades
+		where id_finanzas = ".$r_poa02["localidad"]." AND id_municipio = ".$ompio);
+		$r_loc = $cons_localidades->fetch_assoc();
 		$marginacion  = $r_loc["id_marginacion"];
 		echo "<td>".$r_loc["id_finanzas"]."</td>\n";
 		unset($r_loc);
@@ -189,7 +219,10 @@ mysql_free_result($cons_mpio_fin);
     <td>".date('d/m/y')."</td>\n
     ";echo "</tr>\n";
 mysql_free_result($cons_margin);
-	}
+
+//termina el while
+
+}
 	unset($id_oficio);
         unset($d_of);
 	mysql_free_result($detalle_oficio);
