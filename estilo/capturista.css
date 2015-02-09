@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/* CSS Document */
+.numero {
+	font-family:Georgia, 'Times New Roman', Times, serif;
+	color:#333;
+	font-size:16px;
+}
+.aprobado{
+	color:#008000;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+.pendiente{
+	color:#E66F00;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+.noaprobado{
+	color:#FF0000;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+.sub_encabezados_tablas {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#8F8F8F;
+}
