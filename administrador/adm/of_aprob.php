@@ -2,8 +2,11 @@
 <script src="SpryAssets/SpryTabbedPanels.js" type="text/javascript"></script>
 <link href="SpryAssets/SpryTabbedPanels.css" rel="stylesheet" type="text/css" />
 <div class="wrap">
-<div id="icon-themes" class="icon32"><br /></div><h2>Oficios de Aprobación para envío al SIIF</h2>
-
+<h2><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Oficios de Aprobación</h2>
+<br>
+<div class="panel panel-default">
+<div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Oficios de Aprobación enviados a Finanzas</div>
+<div class="panel-body">
 <div id="TabbedPanels1" class="TabbedPanels">
   <ul class="TabbedPanelsTabGroup">
     <li class="TabbedPanelsTab" tabindex="0"><div style="font-size:12px;">C73</div></li>
@@ -24,7 +27,7 @@
     </div>
     <div class="TabbedPanelsContent"><?php require_once('c76_html.php');?></div>
   <div class="TabbedPanelsContent"><?php require_once('c77_html.php');?>
-   </div>
+    </div></div></div>
 
 
   </div>
