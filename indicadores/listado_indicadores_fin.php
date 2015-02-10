@@ -4,7 +4,7 @@ $mysqli = new mysqli("localhost", "root", "tr15t4n14", "siplan2015");
 if ($mysqli->connect_errno) {
   echo "Fallo al contenctar a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
-
+$mysqli->query('SET NAMES utf8');
 ?>
 <script type="text/javascript">
 function cambiar_pagina(a){
@@ -12,7 +12,7 @@ location.href=a;
 }
 </script>
 <div id="wrapper" style="padding-left:3%;padding-right:3%;">
-<h2 class="page-header">Indicadores</h2>
+<h3 class="page-header">Indicadores nivel Fin</h3>
 <div class="row">
 <div class="col-lg-12">
 <div class="panel panel-default">
@@ -43,11 +43,15 @@ Lista de indicadores registrados
             ip.id_proyecto as id_proyecto,
             dep.acronimo as dependencia,
             pr.no_proyecto as num_proyecto,
+
             ip.nombre_fin as nombre_indicador
+
             from indicadores_proyecto ip
+
             inner join proyectos pr on(ip.id_proyecto = pr.id_proyecto)
             inner join dependencias dep on(pr.id_dependencia = dep.id_dependencia)
-            where dep.id_dependencia = 1
+
+            where dep.id_dependencia = ".$_SESSION['id_dependencia_v3']."
             order by pr.no_proyecto;
             ";
             $Resultado = $mysqli->query($consulta);
