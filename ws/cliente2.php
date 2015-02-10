@@ -13,7 +13,14 @@ if ($err) {
     echo '<h2>Ha ocurrido un error</h2><pre>' . $err . '</pre>';
 }
 //$result = $client->call('wsSiplan', array('ejercicio' => '2015','dependencia'=>'1','proyecto'=>'1'));
-//$result = $client->call('wsC73',array('ejercicio' => 2015,'dependencia'=>1));
+
+echo "<hr>C74";
+$result = $client->call('wsC73',array('ejercicio' => 2015,'dependencia'=>1));
+echo "<pre>";
+print_r($result);
+echo "</pre>";
+
+
 echo "<hr>C74";
 $result = $client->call('wsC74',array('ejercicio' => 2015,'dependencia'=>1));
 echo "<pre>";
