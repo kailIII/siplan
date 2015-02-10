@@ -35,6 +35,11 @@
 <li id="wp-admin-bar-view-site"><a class="ab-item"  href="rpts/reporte_ofi_edo_fin.php" target="_blank">Resumen Est/Fin</a></li>
         </ul></div></li>
 
+<li id="wp-admin-bar-site-name" class="menupop"><a class="ab-item"  aria-haspopup="true" href="#">Indicadores</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-site-name-default" class="ab-submenu">
+		<li id="wp-admin-bar-view-site"><a class="ab-item"  href="main.php?token=<?php print(md5(42)); ?>">Indicadores Fin</a>		</li>
+        <li id="wp-admin-bar-view-site"><a class="ab-item"  href="main.php?token=<?php print(md5('#')); ?>">Indicadores Propósito</a>		</li>
+        </ul></div></li>
+
         	<li id="wp-admin-bar-site-name" class="menupop"><a class="ab-item"  aria-haspopup="true" href="#">Estados Financieros</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-site-name-default" class="ab-submenu">
 		<li id="wp-admin-bar-view-site"><a class="ab-item"  href="main.php?token=<?php print(md5(35)); ?>">Actualizar</a>		</li>
         <li id="wp-admin-bar-view-site"><a class="ab-item"  href="main.php?token=<?php print(md5(36)); ?>">Mostrar</a>		</li>
