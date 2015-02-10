@@ -7,7 +7,6 @@
 <?php
 require_once('lib/nusoap.php');
 $client = new nusoap_client("http://localhost/siplan/ws/ws_siplan.php?wsdl", true);
-//$client = new nusoap_client("http://siplan.zacatecas.gob.mx/ws/ws_siplan.php?wsdl", true);
 $client->setCredentials("siplan_ws","4Do1t4m0");
 $err = $client->getError();
 if ($err) {
