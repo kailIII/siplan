@@ -20,8 +20,9 @@ $server->configureWSDL('WSDL SIPLAN', $ns);
 function wsSiplan($ejercicio,$dependencia,$proyecto)
 {
 
-//$conexion = 	mysql_connect("localhost", "root", "tr15t4n14");
+
 $conexion = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
+//$conexion = mysql_connect("localhost", "root", "tr15t4n14");
 $consulta = "select
 dep.id_sector as sector,
 pr.id_dependencia as dependencia,
@@ -415,7 +416,7 @@ function wsC74($ejercicio,$dependencia){
 function wsC75($ejercicio,$dependencia){
   //$conexion = mysql_connect("localhost", "root", "tr15t4n14");
     $conexion = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
-    mysql_select_db("siplan", $conexion);
+    mysql_select_db("siplan2015", $conexion);
     mysql_query("SET NAMES utf8");
     $consulta_c75 = mysql_query("call c75($ejercicio,$dependencia)",$conexion)or die ("<span class='rojo'>error en llamada de procedimiento</span>");
     $i = 0;
@@ -486,8 +487,8 @@ function wsC76($ejercicio,$dependencia){
 }
 
 function wsC77($ejercicio,$dependencia){
-    // $conexion = mysql_connect("localhost", "root", "tr15t4n14");
-    $conexion = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
+   //  $conexion = mysql_connect("localhost", "root", "tr15t4n14");
+   $conexion = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
     mysql_select_db("siplan2015", $conexion);
     mysql_query("SET NAMES utf8");
     $consulta_c77 = mysql_query("call c77($ejercicio,$dependencia)",$conexion)or die ("<span class='rojo'>error en llamada de procedimiento</span>");
