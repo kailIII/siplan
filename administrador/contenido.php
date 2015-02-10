@@ -147,9 +147,18 @@ location.href="index.html";
         include("about.php");
         break;
 
-          case md5(41):
+        case md5(41):
         include("rechazar_proyecto.php");
         break;
+
+        case md5(42):
+        include("indicadores/listado_indicadores_fin.php");
+        break;
+
+        case md5(43):
+        include("indicadores/indicadores_info_fin.php");
+        break;
+
         case md5(90):
 		include("administrador/proyectos/info_componente.php");
 		break;
