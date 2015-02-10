@@ -13,8 +13,8 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW'])) {
 }
 require_once('lib/nusoap.php');
 $server = new nusoap_server();
-$ns = 'http://localhost/siplan/ws/ws_siplan.php';
-//$ns = 'http://siplan.zacatecas.gob.mx/ws/ws_siplan.php';
+//$ns = 'http://localhost/siplan/ws/ws_siplan.php';
+$ns = 'http://siplan.zacatecas.gob.mx/ws/ws_siplan.php';
 $server->configureWSDL('WSDL SIPLAN', $ns);
 
 function wsSiplan($ejercicio,$dependencia,$proyecto)
@@ -109,28 +109,22 @@ order by pr.id_dependencia,pr.no_proyecto,comp.no_componente,acc.no_accion ASC;"
 
 function wsC73($ejercicio,$dependencia_recibe){
 
-
- $siplan_data_conn = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
-  // $siplan_data_conn = mysql_connect("localhost", "siplan_usr", "tr15t4n14");
- mysql_select_db("siplan2015", $siplan_data_conn);
-  $oficios = mysql_query("select id_oficio from oficio_aprobacion where estatus_sefin = 0 and tipo = 0",$siplan_data_conn) or die (mysql_error());
-   $i=0;
-   while($r_of = mysql_fetch_assoc($oficios)){
-      $id_oficio = $r_of['id_oficio'];
-      $detalle_oficio = mysql_query("SELECT id_poa02 FROM detalle_oficio WHERE id_oficio = ".$id_oficio,$siplan_data_conn);
-
-   while($d_of = mysql_fetch_assoc($detalle_oficio)){
-
-     	$consulta_poa02 = mysql_query("select * from obras where id_obra = ".$d_of["id_poa02"],$siplan_data_conn) or die (mysql_error());
-
-        $r_poa02 = mysql_fetch_assoc($consulta_poa02);
-	$consulta_deps = mysql_query("SELECT id_dependencia, id_sector FROM dependencias WHERE id_dependencia = ".$r_poa02["id_dependencia"],$siplan_data_conn)or die (mysql_error);
-	$r_dep = mysql_fetch_assoc($consulta_deps);
-
-	$sector = $r_dep['id_sector'];
-	$dependencia = $r_dep['id_dependencia'];
-
-	unset($r_dep);
+$siplan_data_conn = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
+//$siplan_data_conn = mysql_connect("localhost", "root", "tr15t4n14");
+mysql_select_db("siplan2015", $siplan_data_conn);
+mysql_query("SET NAMES utf8");
+$oficios = mysql_query("select id_oficio from oficio_aprobacion where estatus_sefin = 0 and tipo = 0",$siplan_data_conn) or die (mysql_error());
+$i=0;
+while($r_of = mysql_fetch_assoc($oficios)){
+    $id_oficio = $r_of['id_oficio'];
+    $detalle_oficio = mysql_query("SELECT id_poa02 FROM detalle_oficio WHERE id_oficio = ".$id_oficio,$siplan_data_conn);
+    while($d_of = mysql_fetch_assoc($detalle_oficio)){
+       $consulta_poa02 = mysql_query("select * from obras where id_obra = ".$d_of["id_poa02"],$siplan_data_conn) or die (mysql_error());
+       $r_poa02 = mysql_fetch_assoc($consulta_poa02);
+       $consulta_deps = mysql_query("SELECT id_dependencia, id_sector FROM dependencias WHERE id_dependencia = ".$r_poa02["id_dependencia"],$siplan_data_conn)or die (mysql_error);    $r_dep = mysql_fetch_assoc($consulta_deps);
+	   $sector = $r_dep['id_sector'];
+	   $dependencia = $r_dep['id_dependencia'];
+	   unset($r_dep);
         mysql_free_result($consulta_deps);
         $obra =  $r_poa02['obra'];
 	$consulta_poaorigen = mysql_query("SELECT s06c_proyec,s07c_partid,s08c_origen,s11c_compon,s25c_accion from poa02_origen where id_poa02 = ".$obra,$siplan_data_conn) or die (mysql_error());
@@ -173,19 +167,25 @@ function wsC73($ejercicio,$dependencia_recibe){
 
 	$descripcion = $r_poa02['descripcion'];
 
+
+
+
+
 		$ompio = $r_poa02["municipio"];
-
-                $cons_mpio_fin = mysql_query("select id_municipio from municipios where id_finanzas = ".$ompio,$siplan_data_conn) or die (mysql_error());
-                $ompio = mysql_result($cons_mpio_fin,0);
-
-
-                $cons_mpios = mysql_query("SELECT id_finanzas,id_reg_finanzas from municipios where id_municipio = ".$ompio,$siplan_data_conn)or die (mysql_error());
+        $cons_mpio_fin = mysql_query("select id_municipio,id_region from municipios where id_finanzas = ".$ompio,$siplan_data_conn) or die (mysql_error());
+        $rmpio = mysql_fetch_assoc($cons_mpio_fin);
+        $municipio = $rmpio['id_municipio'];
+        $region = $rmpio['id_region'];
+        unset($rmpio);
+        /*$ompio = mysql_result($cons_mpio_fin,0);
+        $cons_mpios = mysql_query("SELECT id_finanzas,id_reg_finanzas from municipios where id_municipio = ".$ompio,$siplan_data_conn)or die (mysql_error());
 		$rmpio = mysql_fetch_assoc($cons_mpios);
-
-		$municipio =  $rmpio["id_finanzas"];
+        $municipio =  $rmpio["id_finanzas"];
 		$region = $rmpio["id_reg_finanzas"];
+        unset($rmpio);
+        */
 
-                unset($rmpio);
+
                 mysql_free_result($cons_mpios);
 
                 $oloc = $r_poa02["localidad"];
@@ -382,6 +382,7 @@ function wsC74($ejercicio,$dependencia){
 //$conexion = mysql_connect("localhost", "root", "tr15t4n14");
     $conexion = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
     mysql_select_db("siplan2015", $conexion);
+    mysql_query("SET NAMES utf8");
     $consulta_c74 = mysql_query("call c74($ejercicio,$dependencia)",$conexion)or die ("<span class='rojo'>error en llamada de procedimiento</span>");
     $i = 0;
     while($r_c74 = mysql_fetch_assoc($consulta_c74)){
@@ -412,9 +413,10 @@ function wsC74($ejercicio,$dependencia){
 }
 
 function wsC75($ejercicio,$dependencia){
-//    $conexion = mysql_connect("localhost", "root", "tr15t4n14");
+  //$conexion = mysql_connect("localhost", "root", "tr15t4n14");
     $conexion = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
     mysql_select_db("siplan", $conexion);
+    mysql_query("SET NAMES utf8");
     $consulta_c75 = mysql_query("call c75($ejercicio,$dependencia)",$conexion)or die ("<span class='rojo'>error en llamada de procedimiento</span>");
     $i = 0;
      while($r_c75 = mysql_fetch_assoc($consulta_c75)){
@@ -455,6 +457,7 @@ function wsC76($ejercicio,$dependencia){
     //$conexion = mysql_connect("localhost", "root", "tr15t4n14");
     $conexion = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
     mysql_select_db("siplan2015", $conexion);
+   mysql_query("SET NAMES utf8");
     $consulta_c76 = mysql_query("call c76($ejercicio,$dependencia)",$conexion)or die ("<span class='rojo'>error en llamada de procedimiento</span>");
     $i = 0;
      while($r_c76 = mysql_fetch_assoc($consulta_c76)){
@@ -483,9 +486,10 @@ function wsC76($ejercicio,$dependencia){
 }
 
 function wsC77($ejercicio,$dependencia){
-    //$conexion = mysql_connect("localhost", "root", "tr15t4n14");
+    // $conexion = mysql_connect("localhost", "root", "tr15t4n14");
     $conexion = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
     mysql_select_db("siplan2015", $conexion);
+    mysql_query("SET NAMES utf8");
     $consulta_c77 = mysql_query("call c77($ejercicio,$dependencia)",$conexion)or die ("<span class='rojo'>error en llamada de procedimiento</span>");
     $i = 0;
      while($r_c77 = mysql_fetch_assoc($consulta_c77)){
@@ -527,6 +531,7 @@ function wsR($oficio,$respuesta){
        // $conexion = mysql_connect("localhost", "root", "tr15t4n14");
         $conexion = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.UplA");
        mysql_select_db("siplan2015", $conexion);
+        mysql_query("SET NAMES utf8");
         mysql_query("UPDATE oficio_aprobacion SET estatus_sefin = 1 WHERE no_oficio = '$oficio'",$conexion);
         $response[] = array(
             "oficio"=>$oficio,
