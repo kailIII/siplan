@@ -20,10 +20,12 @@ if(isset($_POST['id_dep'])){
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>.:: SIPLAN ::..</title>
 <link rel="shortcut icon" href="imagenes/favicon.ico"/>
+
 <style type="text/css" title="currentStyle">
 @import "media/css/demo_page.css";
 @import "media/css/demo_table.css";
 </style>
+
 <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf-8">
