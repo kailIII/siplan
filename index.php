@@ -24,6 +24,7 @@ $_SESSION['iniciar'] = md5("labor vincit omnia");
 <title>..:: SIPLAN ::..</title>
 <link rel="stylesheet" href="css/bootstrap.css" media="screen">
 <link rel="stylesheet" href="css/bootswatch.min.css">
+
 </head>
 <body style="background-color:#333;">
 <div style="padding-left:5%;padding-right:5%; margin-top:-50px;  background-color:#fff;">
