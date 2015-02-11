@@ -76,8 +76,8 @@ Lista de indicadores registrados
                 <td>Resultado</td>
                 <td class="center">
                     <a href="main.php?token=<?php echo md5(43); ?>&idproyecto=<?php echo $resul['id_proyecto']; ?>"><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a></td>
-                <td class="center"><a href="<?php echo $resul['id_proyecto']; ?>"<span class='glyphicon glyphicon-tasks' aria-hidden='true'></span></a></td>
-                <td class="center"><a href="<?php echo $resul['id_proyecto']; ?>"<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></td>
+                <td class="center"><a href="<?php echo $resul['id_proyecto']; ?>"><span class='glyphicon glyphicon-tasks' aria-hidden='true'></span></a></td>
+                <td class="center"><a href="<?php echo $resul['id_proyecto']; ?>"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></td>
               </tr>
 
               <?php
