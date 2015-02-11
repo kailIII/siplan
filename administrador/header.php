@@ -61,8 +61,6 @@ function cambia_dep(a){
 <link rel="stylesheet" href="css/bootstrap.css" media="screen">
 <link rel="stylesheet" href="css/bootswatch.min.css">
 <link  rel="stylesheet" href="css/font-awesome.min.css">
-
-
 </head>
 <body style="background-color:#fff;">
 <div id="wpadminbar" class="nojq nojs" role="navigation">
