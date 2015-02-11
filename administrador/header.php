@@ -60,7 +60,9 @@ function cambia_dep(a){
 <link href="estilo/capturista.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/bootstrap.css" media="screen">
 <link rel="stylesheet" href="css/bootswatch.min.css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link  rel="stylesheet" href="css/font-awesome.min.css">
+
+
 </head>
 <body style="background-color:#fff;">
 <div id="wpadminbar" class="nojq nojs" role="navigation">
