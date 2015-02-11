@@ -46,6 +46,16 @@ if(($nivel_info == 1 OR $nivel_info == 0) AND ($tipoind == 1 OR $tipoind==0)){
    include ('indicadores/info_basica_fin.php');
 }
 
+if($nivel_info == 2 AND ($tipoind == 1 OR $tipoind==0)){
+   include ('indicadores/info_numerica_fin.php');
+}
+
+if($nivel_info == 3 AND ($tipoind == 1 OR $tipoind==0)){
+   include ('indicadores/info_grafica_fin.php');
+}
+
+
+
 
 ?>
 
