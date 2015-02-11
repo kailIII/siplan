@@ -156,7 +156,7 @@ location.href="index.html";
         break;
 
         case md5(43):
-        include("indicadores/indicadores_info_fin.php");
+        include("indicadores/indicador_info_fin.php");
         break;
 
         case md5(90):

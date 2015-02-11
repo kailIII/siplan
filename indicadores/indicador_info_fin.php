@@ -1,3 +1,4 @@
+
 <?php
 $mysqli = new mysqli("localhost", "root", "tr15t4n14", "siplan2015");
 if ($mysqli->connect_errno) {
@@ -30,8 +31,16 @@ WHERE pr.id_proyecto = ".$idproyecto;
 $ex_consulta = $mysqli->query($consulta);
 $res_consulta = $ex_consulta->fetch_assoc();
 ?>
+<script type="text/javascript">
+function cargar_info(){
+    document.getElementById("demo").innerHTML = "Paragraph changed!";
+    alert("hola mundo");
 
-  <div id="wrapper" style="padding-left:3%;padding-right:3%;">
+}
+
+cargar_info();
+</script>
+<div id="wrapper" style="padding-left:3%;padding-right:3%;">
 <h2 class="page-header">Información del Indicador - Indicadores FIN</h2>
     <div class="row">
       <div class="col-lg-12">
@@ -40,6 +49,7 @@ $res_consulta = $ex_consulta->fetch_assoc();
             Información del Indicador
           </div>
 
+
           <!-- /.panel-heading -->
           <div class="panel-body">
             <div class="dataTable_wrapper">
@@ -47,58 +57,17 @@ $res_consulta = $ex_consulta->fetch_assoc();
               <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</button>
               <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Exportar</button>
               <p>&nbsp;</p>
-             <form>
-               <div class="input-group">
-                   <span class="input-group-addon" id="sizing-addon2"><b>Sector</b></span>
-  <input type="text" class="form-control" aria-describedby="sizing-addon2" value="<?php echo $res_consulta['num_sector']." ".$res_consulta['sector']; ?>" readonly>
-</div><br>
-                 <div class="input-group">
-                     <span class="input-group-addon" id="sizing-addon2"><b>Dependencia</b></span>
-  <input type="text" class="form-control" aria-describedby="sizing-addon2" value="<?php echo $res_consulta['num_dep']." ".$res_consulta['dependencia']; ?>" readonly >
-</div><br>
 
-                 <div class="input-group">
-  <span class="input-group-addon" id="sizing-addon2">Proyecto</span>
-  <input type="text" class="form-control" aria-describedby="sizing-addon2" value="<?php echo $res_consulta['num_proyecto']." ".$res_consulta['proyecto']; ?>" readonly>
-</div><br>
+    <ul class="nav nav-tabs">
+  <li role="presentation" id="basica"><a href="#">Home</a></li>
+  <li role="presentation" id="numerica"><a href="#">Profile</a></li>
+  <li role="presentation" id="grafica"><a href="#">Messages</a></li>
+</ul>
 
-    <div class="panel panel-default">
-  <div class="panel-heading"><strong>Objetivos</strong></div>
-  <div class="panel-body">
-    <?php echo $res_consulta['objetivo']; ?>
-  </div>
-</div>
 
-                 <div class="panel panel-default">
-  <div class="panel-heading"><strong>Nombre del Indicador</strong></div>
-  <div class="panel-body">
-    <?php echo $res_consulta['nombre']; ?>
-  </div>
-</div>
+        <form>
 
-                                  <div class="panel panel-default">
-  <div class="panel-heading"><strong>M&eacute;todo de C&aacute;lculo</strong></div>
-  <div class="panel-body">
-    <?php echo $res_consulta['metodo']; ?>
-  </div>
-</div>
-
-                 <div class="input-group">
-  <span class="input-group-addon" id="sizing-addon2">Cálculo al 31 de diciembre de 2014</span>
-  <input type="text" class="form-control" aria-describedby="sizing-addon2" value=" <?php echo $res_consulta['calculado']; ?>">
-</div><br>
-
-                 <div class="input-group">
-  <span class="input-group-addon" id="sizing-addon2">Resultado</span>
-  <input type="text" class="form-control" aria-describedby="sizing-addon2" value=" <?php echo $res_consulta['resultado']; ?>">
-</div><br>
-
-                                      <div class="panel panel-default">
-  <div class="panel-heading"><strong>Observaciones</strong></div>
-  <div class="panel-body">
-     <?php echo $res_consulta['observaciones']; ?>
-  </div>
-</div>
+        <div id="demo">iiii</div>
              </form>
             </div>
           </div>
