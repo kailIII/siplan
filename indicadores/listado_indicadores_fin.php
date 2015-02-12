@@ -1,5 +1,4 @@
 <?php
-
 $mysqli = new mysqli("localhost", "root", "tr15t4n14", "siplan2015");
 if ($mysqli->connect_errno) {
   echo "Fallo al contenctar a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
@@ -23,6 +22,7 @@ Lista de indicadores registrados
 <div class="dataTable_wrapper">
 <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</button>
 <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Exportar</button>
+<button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar</button>
 <p>&nbsp;</p>
 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
             <thead>
