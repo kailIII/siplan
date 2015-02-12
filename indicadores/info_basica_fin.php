@@ -19,27 +19,40 @@ WHERE pr.id_proyecto = ".$idproyecto;
 $ex_consulta = $mysqli->query($consulta);
 $res_consulta = $ex_consulta->fetch_assoc();
 ?>
-
- <ul class="nav nav-tabs">
+<ul class="nav nav-tabs">
   <li role="presentation" id="basica" class="active"><a href="#">Información Básica</a></li>
   <li role="presentation" id="numerica"><a href="main.php?token=17e62166fc8586dfa4d1bc0e1742c08b&idproyecto=94&info=2&tipoind=1">Información Númerica</a></li>
   <li role="presentation" id="grafica"><a href="main.php?token=17e62166fc8586dfa4d1bc0e1742c08b&idproyecto=94&info=3&tipoind=1">Gráficos</a></li>
 </ul>
-        <form>
-            <div class="input-group">
-  <span class="input-group-addon" id="basic-addon1"><b>Sector</b></span>
-  <input type="text" class="form-control" aria-describedby="basic-addon1" value="<?php echo $res_consulta['num_sector']." - ".$res_consulta['sector'];?>">
+<form>
+<div class="input-group">
+<span class="input-group-addon" id="sizing-addon2"><b>Sector</b></span>
+<input type="text" class="form-control" aria-describedby="sizing-addon2" value="<?php echo $res_consulta['num_sector']." ".$res_consulta['sector']; ?>" readonly>
+</div><br>
+<div class="input-group">
+<span class="input-group-addon" id="sizing-addon2"><b>Dependencia</b></span>
+<input type="text" class="form-control" aria-describedby="sizing-addon2" value="<?php echo $res_consulta['num_dep']." ".$res_consulta['dependencia']; ?>" readonly >
+</div><br>
+<div class="input-group">
+<span class="input-group-addon" id="sizing-addon2">Proyecto</span>
+<input type="text" class="form-control" aria-describedby="sizing-addon2" value="<?php echo $res_consulta['num_proyecto']." ".$res_consulta['proyecto']; ?>" readonly>
+</div><br>
+<div class="panel panel-default">
+<div class="panel-heading"><strong>Objetivos</strong></div>
+<div class="panel-body">
+<?php echo $res_consulta['objetivo']; ?>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading"><strong>Nombre del Indicador</strong></div>
+<div class="panel-body">
+<?php echo $res_consulta['nombre']; ?>
+</div>
 </div>
 <br>
-            <div class="input-group">
-  <span class="input-group-addon" id="basic-addon1"><b>Dependencia</b></span>
-  <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+<div class="panel panel-default">
+<div class="panel-heading"><strong>Observaciones</strong></div>
+<div class="panel-body">
+<?php echo $res_consulta['observaciones']; ?>
 </div>
-<br>
-            <div class="input-group">
-  <span class="input-group-addon" id="basic-addon1"><b>Proyecto</b></span>
-  <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
-</div>
-
-
-        </form>
+</form>
