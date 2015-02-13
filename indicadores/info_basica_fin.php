@@ -28,6 +28,7 @@ inner join sentido_indicador as sind on (indpro.sentido_fin = sind.id_sentido)
 WHERE pr.id_proyecto = ".$idproyecto;
 $ex_consulta = $mysqli->query($consulta);
 $res_consulta = $ex_consulta->fetch_assoc();
+$sentido = $res_consulta['sentido'];
 ?>
 <ul class="nav nav-tabs">
   <li role="presentation" id="basica" class="active"><a href="#">Información Básica</a></li>
@@ -86,7 +87,7 @@ $res_consulta = $ex_consulta->fetch_assoc();
     </thead>
     <tbody>
          <tr>
-            <td><?php echo $res_consulta['sentido']; ?></td>
+            <td><?php echo $sentido ?></td>
             <td><?php echo $res_consulta['medio']; ?></td>
             <td><?php echo $res_consulta['supuesto']; ?></td>
         </tr>
