@@ -63,6 +63,7 @@ Lista de indicadores registrados
               while($resul = $Resultado->fetch_assoc()){
                 $res = $contador/2;
                 $contador++;
+                  $id_proyecto = $resul['id_proyecto'];
 
 
 
@@ -96,7 +97,6 @@ Lista de indicadores registrados
                  $r_fin = 0;
                 }
 
-
                  if($r_fin < 70){
                      $progress_bar = "progress-bar-danger";
                  }
@@ -113,25 +113,21 @@ Lista de indicadores registrados
                 $progress_bar = "progress-bar-info";
                 }
 
-
                 ?>
-
-
-
-                                    <div class="progress progress-striped active">
+                   <div class="progress progress-striped active">
                                         <div class="progress-bar <?php echo $progress_bar;?>" role="progressbar"
                                              aria-valuenow="<?php echo $r_fin?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $r_fin;?>%">
-                                            <span class="text-muted"><?php echo $r_fin;?></span>
+                                            <span><?php echo $r_fin;?></span>
                                         </div>
                                     </div>
 
-
-
  </td>
                 <td class="center">
-                    <a href="main.php?token=<?php echo md5(43); ?>&idproyecto=<?php echo $resul['id_proyecto']; ?>"><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a></td>
-                <td class="center"><a href="<?php echo $resul['id_proyecto']; ?>"><span class='glyphicon glyphicon-tasks' aria-hidden='true'></span></a></td>
-                <td class="center"><a href="<?php echo $resul['id_proyecto']; ?>"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></td>
+                    <a href="main.php?token=<?php echo md5(43); ?>&idproyecto=<?php echo $id_proyecto; ?>"><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a></td>
+                <td class="center">
+                    <a href="main.php?token=<?php echo md5(44); ?>&idproyecto=<?php echo $id_proyecto; ?>"><span class='glyphicon glyphicon-tasks' aria-hidden='true'></span></a></td>
+                <td class="center">
+                    <a href="<?php echo $resul['id_proyecto']; ?>"><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></td>
               </tr>
 
               <?php
