@@ -43,12 +43,14 @@ $res_consulta = $ex_consulta->fetch_assoc();
 <table class="table table-striped table-bordered table-hover">
     <thead>
         <tr>
-            <th>Calculado a diciembre de 2014</th>
+            <th>Fecha de Cálculo</th>
+            <th>Calculado</th>
             <th>Resultado</th>
         </tr>
     </thead>
     <tbody>
         <tr>
+            <td>31 de Diciembre de 2014</td>
             <td><?php echo $res_consulta['calculado']; ?></td>
             <td><?php echo $res_consulta['resultado']; ?></td>
         </tr>

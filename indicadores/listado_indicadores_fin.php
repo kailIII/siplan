@@ -43,7 +43,8 @@ Lista de indicadores registrados
             ip.id_proyecto as id_proyecto,
             dep.acronimo as dependencia,
             pr.no_proyecto as num_proyecto,
-
+            ip.sentido_fin as sentido,
+            ip.fin_resultado as resultado,
             ip.nombre_fin as nombre_indicador
 
             from indicadores_proyecto ip
@@ -58,6 +59,7 @@ Lista de indicadores registrados
             $contador = 1;
 
 
+
               while($resul = $Resultado->fetch_assoc()){
                 $res = $contador/2;
                 $contador++;
@@ -69,11 +71,63 @@ Lista de indicadores registrados
           ?>
 
               <tr class="<?php echo $clase_css; ?>">
-                <td>--</td>
+                <td><?php
+                    switch($resul['sentido']){
+                    case 1:
+                        echo "<span class='glyphicon glyphicon-arrow-up' aria-hidden='true'></span>";
+                        break;
+                        case 2:
+                        echo "<span class='glyphicon glyphicon-arrow-down' aria-hidden='true'></span>";
+                        break;
+                        case 3:
+                        echo "<span class='glyphicon glyphicon-arrow-retweet' aria-hidden='true'></span>";
+                        break;
+                    }
+
+                  ?></td>
                 <td><?php echo $resul['dependencia']; ?></td>
                 <td><?php echo $resul['num_proyecto']; ?></td>
                 <td><?php echo $resul['nombre_indicador']; ?></td>
-                <td>Resultado</td>
+                <td>
+
+                <?php
+                  $r_fin = $resul['resultado'];
+                if($r_fin == ""){
+                 $r_fin = 0;
+                }
+
+
+                 if($r_fin < 70){
+                     $progress_bar = "progress-bar-danger";
+                 }
+
+                 if($r_fin < 85 and $r_fin > 69){
+                 $progress_bar = "progress-bar-warning";
+                 }
+
+                 if($r_fin > 84 and $r_fin < 101){
+                 $progress_bar = "progress-bar-success";
+                 }
+
+                if($r_fin > 100){
+                $progress_bar = "progress-bar-info";
+                }
+
+
+                ?>
+
+
+
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar <?php echo $progress_bar;?>" role="progressbar"
+                                             aria-valuenow="<?php echo $r_fin?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $r_fin;?>%">
+                                            <span class="text-muted"><?php echo $r_fin;?></span>
+                                        </div>
+                                    </div>
+
+
+
+ </td>
                 <td class="center">
                     <a href="main.php?token=<?php echo md5(43); ?>&idproyecto=<?php echo $resul['id_proyecto']; ?>"><span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span></a></td>
                 <td class="center"><a href="<?php echo $resul['id_proyecto']; ?>"><span class='glyphicon glyphicon-tasks' aria-hidden='true'></span></a></td>
