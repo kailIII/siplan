@@ -32,8 +32,8 @@ $sentido = $res_consulta['sentido'];
 ?>
 <ul class="nav nav-tabs">
   <li role="presentation" id="basica" class="active"><a href="#">Información Básica</a></li>
-  <li role="presentation" id="numerica"><a href="main.php?token=17e62166fc8586dfa4d1bc0e1742c08b&idproyecto=94&info=2&tipoind=1">Información Númerica</a></li>
-  <li role="presentation" id="grafica"><a href="main.php?token=17e62166fc8586dfa4d1bc0e1742c08b&idproyecto=94&info=3&tipoind=1">Gráficos</a></li>
+  <li role="presentation" id="numerica"><a href="main.php?token=17e62166fc8586dfa4d1bc0e1742c08b&idproyecto=<?php echo $_GET['idproyecto'];?>&info=2&tipoind=1">Información Númerica</a></li>
+  <li role="presentation" id="grafica"><a href="main.php?token=17e62166fc8586dfa4d1bc0e1742c08b&idproyecto=<?php echo $_GET['idproyecto'];?>&info=3&tipoind=1">Gráficos</a></li>
 </ul>
 
 <p><span class="label label-default" style="font-size:12px;">Proyecto: </span>&nbsp;<strong><?php echo $res_consulta['num_proyecto']." ".$res_consulta['proyecto']; ?></strong> </p>
