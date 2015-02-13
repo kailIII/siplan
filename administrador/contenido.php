@@ -158,6 +158,13 @@ location.href="index.html";
         case md5(43):
         include("indicadores/indicador_info_fin.php");
         break;
+         case md5(44):
+        include("indicadores/calculo_fin.php");
+        break;
+
+       case md5(45):
+        include("indicadores/guarda_calculo_fin.php");
+        break;
 
         case md5(90):
 		include("administrador/proyectos/info_componente.php");
