@@ -30,6 +30,7 @@ Lista de indicadores registrados
                 <th><span class="glyphicon glyphicon-stats" aria-hidden="true"></span></th>
                 <th>Dependencia</th>
                 <th>Proyecto</th>
+                <th>Ejercicio</th>
                 <th>Indicador</th>
                 <th>Resultado</th>
                 <th>Información</th>
@@ -39,6 +40,7 @@ Lista de indicadores registrados
             </thead>
             <tbody>
           <?php
+/*--- Primero Obtenemos los indicadores del 2014 */
             $consulta = "SELECT
             ip.id_proyecto as id_proyecto,
             dep.acronimo as dependencia,
@@ -46,28 +48,18 @@ Lista de indicadores registrados
             ip.sentido_fin as sentido,
             ip.fin_resultado as resultado,
             ip.nombre_fin as nombre_indicador
-
-            from indicadores_proyecto ip
-
-            inner join proyectos pr on(ip.id_proyecto = pr.id_proyecto)
+            from indicadores_proyecto_2014 ip
+            inner join proyectos_2014 pr on(ip.id_proyecto = pr.id_proyecto)
             inner join dependencias dep on(pr.id_dependencia = dep.id_dependencia)
-
             where dep.id_dependencia = ".$_SESSION['id_dependencia_v3']."
-            order by pr.no_proyecto;
+            order by pr.no_proyecto
             ";
             $Resultado = $mysqli->query($consulta);
             $contador = 1;
-
-
-
               while($resul = $Resultado->fetch_assoc()){
                 $res = $contador/2;
                 $contador++;
                   $id_proyecto = $resul['id_proyecto'];
-
-
-
-
                 if($res == 0){$clase_css = "odd gradeX";}else{$clase_css = "even gradeC";}
           ?>
 
@@ -88,6 +80,7 @@ Lista de indicadores registrados
                   ?></td>
                 <td><?php echo $resul['dependencia']; ?></td>
                 <td><?php echo $resul['num_proyecto']; ?></td>
+                  <td>2014</td>
                 <td><?php echo $resul['nombre_indicador']; ?></td>
                 <td>
 
