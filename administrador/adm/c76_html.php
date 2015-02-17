@@ -7,11 +7,11 @@ $consulta_oficios = $conexion->query("SELECT id_oficio,no_oficio,tipo,fecha_ofic
 while($r_of = $consulta_oficios->fetch_assoc()){
     echo "<tr>";
     $id_oficio = $r_of['id_oficio'];
-    $cons_d_of = $conexion-query("SELECT id_proyecto from detalle_oficio where id_oficio = ".$id_oficio." group by id_oficio");
-    $id_pro_r = $cons_d_of->fetch_arry();
+    $cons_d_of = $conexion->query("SELECT id_proyecto from detalle_oficio where id_oficio = ".$id_oficio." group by id_oficio");
+    $id_pro_r = $cons_d_of->fetch_array();
     $id_pro= $id_pro_r[0];
     $cons_d_of->free();
-    $cons_dep = $conexion->query("SELECT id_dependencia FROM proyectos WHERE id_proyecto = ");
+    $cons_dep = $conexion->query("SELECT id_dependencia FROM proyectos WHERE id_proyecto = ".$id_pro);
     $r_cons_dep = $cons_dep->fetch_array();
     echo "<td>".$r_cons_dep[0]."</td>";
     $cons_dep->free();
