@@ -1,38 +1,4 @@
 <?php
-/*
-se agrega una clase de conexion mas nueva para este archivo
-
-class conectar{
-    //Se crean las variables a utilizar en la clase de la conexión
-	protected $servidor;
-	protected $usuario;
-	protected $clave;
-	protected $bd;
-	protected $conexion;
-    protected $error = "Error en la Conexión a la Base de Datos, favor de contactar al webmaster";
-
-    //Se inicializan las variables para la conexión a la base de datos
-    function inicializar($h,$u,$p,$b){
-     $this->servidor = $h;
-     $this->usuario = $u;
-     $this->clave = $p;
-     $this->bd = $b;
-    }
-
-    //Se realiza la conexión y se regresa el recurso ocn la conexión o con el error
-	function conectarse(){
-     $this->conexion = new mysqli($this->servidor,$this->usuario,$this->clave,$this->bd);
-    if ($this->conexion->connect_errno) {
-        return $this->error;
-      }else{return $this->conexion;}
-
-    }
-}
-
-
-*/
-
-
 if($_SESSION['id_perfil_v3']==1){
 echo "<table  border='1' cellspacing='0' cellpadding='0'>\n";
 $oficios = $conexion->query("select id_oficio from oficio_aprobacion where estatus_sefin = 0 and tipo = 0");
@@ -209,7 +175,7 @@ $consulta_poaorigen = $conexion->query("SELECT s06c_proyec,s07c_partid,s08c_orig
 	echo "<td>".$region."</td>\n";
 	$cons_margin = $conexion->query("SELECT descripcion from marginacion where id_marginacion = ".$marginacion);
 	$r_mar = $cons_margin->fetch_array();
-    echo "<td>".$_mar[0]."</td>\n
+    echo "<td>".$r_mar[0]."</td>\n
 	<td>1</td>\n
     <td>1</td>\n
     <td>".date('d/m/y')."</td>\n
