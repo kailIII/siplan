@@ -17,7 +17,7 @@ while($r_of = $oficios->fetch_assoc()){
 	    $consxdep = $r_obras["consxdep"];
 		unset($r_obras);
 		$consulta_poa02->free();
-        $consulta_poa02_origen = $conexion->query("SELECT * FROM poa02_origen where id_poa02 =".$obra,$siplan_data_conn) or die (mysql_error());
+        $consulta_poa02_origen = $conexion->query("SELECT * FROM poa02_origen where id_poa02 =".$obra);
 		while($r_origen = $consulta_poa02_origen->fetch_assoc()){
 			$consulta_proyecto = $conexion->query("SELECT id_dependencia,no_proyecto from proyectos WHERE id_proyecto = ".$id_proy);
 			$rpro = $consulta_proyecto->fetch_assoc();
