@@ -14,7 +14,7 @@ while($r_of = $oficios->fetch_assoc()){
 	$detalle_oficio = $conexion->query("SELECT id_poa02,id_proyecto FROM detalle_oficio WHERE id_oficio = ".$id_oficio);
 	while($d_of = $detalle_oficio->fetch_assoc()){
 		$id_proy = $d_of["id_proyecto"];
-		$consulta_poa02 = $conexion-query("select obra,consxdep from obras where id_obra = ".$d_of["id_poa02"]);
+		$consulta_poa02 = $conexion->query("select obra,consxdep from obras where id_obra = ".$d_of["id_poa02"]);
 	    $r_obras = $consulta_poa02->fetch_assoc();
 	    $obra = $r_obras["obra"];
 	    $consxdep = $r_obras["consxdep"];
