@@ -10,7 +10,7 @@ while($r_of = $consulta_oficios->fetch_assoc()){
     $tipo_of = $r_of['tipo'];
     $fof = $r_of['fecha_oficio'];
     $fca = $r_of['fecha_captura'];
-    $consulta_detof = $conexion-query("SELECT id_poa02,monto FROM detalle_oficio WHERE id_oficio = ".$id_oficio);
+    $consulta_detof = $conexion->query("SELECT id_poa02,monto FROM detalle_oficio WHERE id_oficio = ".$id_oficio);
     while($r_detof = $consulta_detof->fetch_assoc()){
         $idpoa = $r_detof['id_poa02'];
         $monto = $r_detof['monto'];
