@@ -1,4 +1,5 @@
 <?php
+// saludo
 // se revisa infoirmación en caso de cambio de dependencia
 //se agrega usuario a github
 if(isset($_POST['id_dep'])){
