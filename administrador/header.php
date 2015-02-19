@@ -1,5 +1,6 @@
 <?php
 // se revisa infoirmación en caso de cambio de dependencia
+//se agrega usuario a github
 if(isset($_POST['id_dep'])){
 	$iddep = $_POST['id_dep'];
 	$cons = $conexion->query("SELECT id_sector,id_dependencia,nombre from dependencias WHERE id_dependencia = ".$iddep);
