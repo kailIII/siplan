@@ -54,7 +54,7 @@
 
 <li id="wp-admin-bar-site-name" class="menupop"><a class="ab-item"  aria-haspopup="true" href="#">Administración</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-site-name-default" class="ab-submenu">
 		<li id="wp-admin-bar-view-site"><a class="ab-item"  href="main.php?token=<?php print(md5(93)); ?>">Oficios Aprobación</a>		</li>
-        <li id="wp-admin-bar-view-site"><a class="ab-item"  href="#">Usuarios</a></li>
+        <li id="wp-admin-bar-view-site"><a class="ab-item"  href="main.php?token=<?php print(md5(46));?>">Usuarios</a></li>
         </ul></div></li>
 
 
