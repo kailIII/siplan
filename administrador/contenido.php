@@ -166,6 +166,10 @@ location.href="index.html";
         include("indicadores/guarda_calculo_fin.php");
         break;
 
+        case md5(46):
+        include("administrador/adm/usuarios/usuarios_lista.php");
+        break;
+
         case md5(90):
 		include("administrador/proyectos/info_componente.php");
 		break;
