@@ -1,5 +1,7 @@
 <?php
 if($_SESSION['id_perfil_v3']==1){
+    echo "<a href = 'rpts/c73_xls.php' target='_blank'>Descargar c73 XLS</a><br>
+<br><h3>Archivo c73</h3><br>";
 echo "<table  border='1' cellspacing='0' cellpadding='0'>\n";
 $oficios = $conexion->query("select id_oficio from oficio_aprobacion where estatus_sefin = 0 and tipo = 0");
 while($r_of = $oficios->fetch_assoc()){
