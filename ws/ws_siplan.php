@@ -114,7 +114,7 @@ $siplan_data_conn = mysql_connect("10.221.12.2", "siplan_consulta", "cons.1pl4n.
 //$siplan_data_conn = mysql_connect("localhost", "root", "tr15t4n14");
 mysql_select_db("siplan2015", $siplan_data_conn);
 mysql_query("SET NAMES utf8");
-$oficios = mysql_query("select id_oficio from oficio_aprobacion where estatus_sefin = 0 and tipo = 0",$siplan_data_conn) or die (mysql_error());
+$oficios = mysql_query("select id_oficio from oficio_aprobacion where estatus_sefin = 0 and tipo = 0 and activo = 1",$siplan_data_conn) or die (mysql_error());
 $i=0;
 while($r_of = mysql_fetch_assoc($oficios)){
     $id_oficio = $r_of['id_oficio'];
@@ -165,13 +165,7 @@ while($r_of = mysql_fetch_assoc($oficios)){
 
 	unset($r_pro);
         mysql_free_result($consulta_proyecto);
-
 	$descripcion = $r_poa02['descripcion'];
-
-
-
-
-
 		$ompio = $r_poa02["municipio"];
         $cons_mpio_fin = mysql_query("select id_municipio,id_region from municipios where id_finanzas = ".$ompio,$siplan_data_conn) or die (mysql_error());
         $rmpio = mysql_fetch_assoc($cons_mpio_fin);
@@ -336,7 +330,7 @@ while($r_of = mysql_fetch_assoc($oficios)){
                 "cantidad"=>$cantidad,
             "hombres"=>$ben_h,
                 "mujeres"=>$ben_m,
-            "punt"=>0,
+            "punt"=>1,
             "prior"=>1,
             "region"=>$region,
             "marginalidad"=>$marginacion,
