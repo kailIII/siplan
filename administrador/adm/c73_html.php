@@ -15,18 +15,16 @@ while($r_of = $oficios->fetch_assoc()){
        unset($r_dep);
        $consulta_deps->free();
        $obra =  $r_poa02['obra'];
-	$consulta_poaorigen = $conexion->query("SELECT s06c_proyec,s07c_partid,s08c_origen,s11c_compon,s25c_accion from poa02_origen where id_poa02 = ".$obra);
-    $r_poa02_o = $consulta_poaorigen->fetch_assoc();
-	$s06c_proyec = $r_poa02_o['s06c_proyec'];
-	$s07c_partid = $r_poa02_o['s07c_partid'];
-	$s08c_origen = $r_poa02_o['s08c_origen'];
-	$s11c_compon = $r_poa02_o['s11c_compon'];
-	$s25c_accion = $r_poa02_o['s25c_accion'];
-        unset($r_poa02_o);
-        $consulta_poaorigen->free();
-        $consulta_edosfin = $conexion->query("SELECT s03c_objeti,s04c_progra,s05c_subpro
-		FROM estados_financieros
-		where
+	   $consulta_poaorigen = $conexion->query("SELECT s06c_proyec,s07c_partid,s08c_origen,s11c_compon,s25c_accion from poa02_origen where id_poa02 = ".$obra);
+       $r_poa02_o = $consulta_poaorigen->fetch_assoc();
+	   $s06c_proyec = $r_poa02_o['s06c_proyec'];
+	   $s07c_partid = $r_poa02_o['s07c_partid'];
+	   $s08c_origen = $r_poa02_o['s08c_origen'];
+	   $s11c_compon = $r_poa02_o['s11c_compon'];
+	   $s25c_accion = $r_poa02_o['s25c_accion'];
+       unset($r_poa02_o);
+       $consulta_poaorigen->free();
+       $consulta_edosfin = $conexion->query("SELECT s03c_objeti,s04c_progra,s05c_subpro FROM estados_financieros where
 		s01c_sector = '$sector' and
 		s02c_depend = '$dependencia' and
 		s06c_proyec = '$s06c_proyec' and
@@ -35,11 +33,9 @@ while($r_of = $oficios->fetch_assoc()){
 		s11c_compon = '$s11c_compon' and
 		s25c_accion = '$s25c_accion'");
 		$r_edofin = $consulta_edosfin->fetch_assoc();
-
 	$eje = $r_edofin["s03c_objeti"];
 	$linea = $r_edofin["s04c_progra"];
 	$estrategia = $r_edofin["s05c_subpro"];
-
 	unset($r_edofin);
      $consulta_edosfin->free();
 	$consulta_proyecto = $conexion->query("SELECT no_proyecto,nombre FROM proyectos WHERE id_proyecto = ".$r_poa02['id_proyecto']);
@@ -47,7 +43,6 @@ while($r_of = $oficios->fetch_assoc()){
 	$n_proyecto = $r_pro['no_proyecto'];
 	$nombre_proyecto = $r_pro['nombre'];
 	$consxdep = $r_poa02['consxdep'];
-
 	unset($r_pro);
         $consulta_proyecto->free();
 	$descripcion = $r_poa02['descripcion'];
@@ -164,21 +159,20 @@ while($r_of = $oficios->fetch_assoc()){
     $r_marginacion =  $cons_margin->fetch_array();
     $marginacion = $r_marginacion[0];
     $cons_margin->free();
-
     $c73[$i] = array(
     'sec'=>$sector,
     'dep'=>$dependencia,
     'obj'=>$eje,
-     'pro'=>$linea,
+    'pro'=>$linea,
      'subpro'=>$estrategia,
      'proyecto'=>$n_proyecto,
      "com"=>$s11c_compon,
-    "acc"=>$s25c_accion,
-            "obra"=>$consxdep,
-            "upla"=>$obra,
-            "int"=>0 ,
-            "desproy"=>$nombre_proyecto,
-            "desobra"=>$descripcion,
+     "acc"=>$s25c_accion,
+    "obra"=>$consxdep,
+    "upla"=>$obra,
+    "int"=>0 ,
+    "desproy"=>$nombre_proyecto,
+    "desobra"=>$descripcion,
             "mun"=>$municipio,
             "loc"=>$finanzas_localidad,
             "annioI"=>$ai,
@@ -216,18 +210,55 @@ while($r_of = $oficios->fetch_assoc()){
     }
     unset($r_of);
 $limite = count($c73);
-for($x=0;$x<$limite;$x++){
-  echo "<pre>";
-    print_r($c73[$x]);
-  echo "</pre>";
-}
-
-
-
-
-
-
-
-
-
 ?>
+<h3>Oficios C73</h3>
+<p><a class="label label-success" href="rpts/c73_xls.php" target="_blank"> Descargar XLS </a><br></p>
+
+<table border="1" style="width:100%">
+<?php
+for($x=0;$x<$limite;$x++){
+echo "<tr>
+<td>".$c73[$x]['sec']."</td>
+    <td>".$c73[$x]['dep']."</td>
+    <td>".$c73[$x]['obj']."</td>
+     <td>".$c73[$x]['pro']."</td>
+     <td>".$c73[$x]['subpro']."</td>
+     <td>".$c73[$x]['proyecto']."</td>
+     <td>".$c73[$x]["com"]."</td>
+    <td>".$c73[$x]["acc"]."</td>
+            <td>".$c73[$x]["obra"]."</td>
+            <td>".$c73[$x]["upla"]."</td>
+            <td>".$c73[$x]["int"]."</td>
+            <td>".$c73[$x]["desproy"]."</td>
+            <td>".$c73[$x]["desobra"]."</td>
+            <td>".$c73[$x]["mun"]."</td>
+            <td>".$c73[$x]["loc"]."</td>
+            <td>".$c73[$x]["annioI"]."</td>
+            <td>".$c73[$x]["mesI"]."</td>
+            <td>".$c73[$x]["annioF"]."</td>
+             <td>".$c73[$x]["mesF"]."</td>
+            <td>".$c73[$x]["mod"]."</td>
+            <td>".$c73[$x]["ret"]."</td>
+            <td>".$c73[$x]["pro_poa"]."</td>
+            <td>".$c73[$x]["subpro_poa"]."</td>
+             <td>".$c73[$x]["uni"]."</td>
+              <td>".$c73[$x]["oficio"]."</td>
+                <td>".$c73[$x]["cantidad"]."</td>
+            <td>".$c73[$x]["hombres"]."</td>
+                <td>".$c73[$x]["mujeres"]."</td>
+            <td>".$c73[$x]["punt"]."</td>
+            <td>".$c73[$x]["prior"]."</td>
+            <td>".$c73[$x]["region"]."</td>
+            <td>".$c73[$x]["marginalidad"]."</td>
+            <td>".$c73[$x]["aprob"]."</td>
+    <td>".$c73[$x]["ofasig"]."</td>
+    <td>".$c73[$x]["fecha"]."</td>
+    <td>".$c73[$x]["idproy"]."</td>
+    <td>".$c73[$x]["usuario"]."</td>
+    <td>".$c73[$x]["fecha1"]."</td>
+    <td>".$c73[$x]["usr"]."</td>
+    <td>".$c73[$x]["fecha2"]."</td>
+    </tr>";
+}
+     ?>
+</table>
