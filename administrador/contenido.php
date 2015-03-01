@@ -170,6 +170,10 @@ location.href="index.html";
         include("administrador/adm/usuarios/usuarios_lista.php");
         break;
 
+        case md5(47):
+        include("administrador/adm/usuarios/tabla_usuarios.php");
+        break;
+
         case md5(90):
 		include("administrador/proyectos/info_componente.php");
 		break;
