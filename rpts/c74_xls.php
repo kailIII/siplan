@@ -10,6 +10,7 @@ header ("Cache-Control: no-cache, must-revalidate");
 header ("Pragma: no-cache");
 header ("Content-type: application/x-msexcel");
 header ("Content-Disposition: attachment; filename=\"c74.xls\"" );
+
 echo "
 <table width='100%' border='1' cellspacing='0' cellpadding='0'>";
 $consulta_c74 = "
