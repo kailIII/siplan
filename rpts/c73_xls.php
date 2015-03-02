@@ -1,8 +1,8 @@
 <?php
+
+ini_set('display_errors','1');
 session_start();
 if($_SESSION['id_perfil']=1){
-
-require_once("../seguridad/siplan_connection_db.php");
 date_default_timezone_set('America/Mexico_City');
 header ("Expires: 0");
 header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
@@ -10,65 +10,72 @@ header ("Cache-Control: no-cache, must-revalidate");
 header ("Pragma: no-cache");
 header ("Content-type: application/x-msexcel");
 header ("Content-Disposition: attachment; filename=\"c73.xls\"" );
-$consulta_c73 = "
-select
-dep.id_sector as sector,
-dep.id_dependencia as dependencia,
-edo_fin.s03c_objeti as obj,
-edo_fin.s04c_progra as pro,
-edo_fin.s05c_subpro as subpro,
-pr.no_proyecto as proyecto,
-poa02.s11c_compon as componente,
-poa02.s25c_accion as accion,
-ob.consxdep as obra,
-ob.obra as upla,
-pr.nombre as desproy,
-ob.descripcion as obra_desc,
-mun.id_finanzas as municipio,
-loc.id_finanzas as localidad,
-ob.fecha_inicio as fecha_i,
-ob.fecha_fin as fecha_fin,
-ob.modalidad as modalidad,
-ob.retencion as retencion,
-ob.programa_poa as pro_poa,
-ob.subprograma_poa as subpro_poa,
-ob.u_medida as u_medida,
-ob.cantidad as cantidad,
-ob.ben_h as ben_h,
-ob.ben_m as ben_m,
-mun.id_reg_finanzas as region,
-mar.descripcion as marginacion
-from detalle_oficio dof
-inner join oficio_aprobacion o on(dof.id_oficio = o.id_oficio)
-inner join proyectos pr on(dof.id_proyecto = pr.id_proyecto)
-inner join eje eje on(eje.id_eje = pr.id_eje)
-inner join linea lin on(lin.id_linea = pr.id_linea)
-inner join estrategias estr on(estr.id_estrategia = pr.id_estrategia)
-inner join dependencias dep on(pr.id_dependencia = dep.id_dependencia)
-inner join obras ob on(ob.id_obra = dof.id_poa02)
-inner join municipios mun on(mun.id_municipio = ob.municipio)
-inner join localidades loc on(loc.id_finanzas = ob.localidad and loc.id_municipio = ob.municipio)
-inner join marginacion mar on(mar.id_marginacion = loc.id_marginacion)
-inner join poa02_origen poa02 on(poa02.id_poa02 = ob.obra)
-inner join estados_financieros edo_fin on(edo_fin.s01c_sector = dep.id_sector and
-edo_fin.s02c_depend = dep.id_dependencia and
-edo_fin.s06c_proyec = poa02.s06c_proyec and
-edo_fin.s07c_partid = poa02.s07c_partid and
-edo_fin.s08c_origen = poa02.s08c_origen and
-edo_fin.s11c_compon = poa02.s11c_compon and
-edo_fin.s25c_accion = poa02.s25c_accion
-)
-where o.estatus_sefin = 0 group by ob.id_obra order by o.id_oficio ASC
-";
 
-echo "<table width='100%' border='1' cellspacing='0' cellpadding='0'>";
-$ex_consulta_c73 = mysql_query($consulta_c73,$siplan_data_conn) or die (mysql_error());
-while($r73 = mysql_fetch_array($ex_consulta_c73)){
-	$f_i = $r73['fecha_i'];
-	$f_f =$r73['fecha_fin'];
-
-	$m_i = substr($f_i,5,2);
-$m_i=substr($r73['fecha_i'],5,2);
+$conexion = new mysqli("localhost","root","tr15t4n14","siplan2015");
+$conexion->query("SET NAMES utf8");
+$oficios = $conexion->query("select id_oficio from oficio_aprobacion where estatus_sefin = 0 and tipo = 0 and activo = 1");
+$i=0;
+while($r_of = $oficios->fetch_assoc()){
+    $id_oficio = $r_of['id_oficio'];
+    $detalle_oficio = $conexion->query("SELECT id_poa02 FROM detalle_oficio WHERE id_oficio = ".$id_oficio);
+    while($d_of = $detalle_oficio->fetch_assoc()){
+       $consulta_poa02 = $conexion->query("select * from obras where id_obra = ".$d_of["id_poa02"]);
+       $r_poa02 = $consulta_poa02->fetch_assoc();
+       $consulta_deps = $conexion->query("SELECT id_dependencia, id_sector FROM dependencias WHERE id_dependencia = ".$r_poa02["id_dependencia"]);
+       $r_dep = $consulta_deps->fetch_assoc();
+	   $sector = $r_dep['id_sector'];
+	   $dependencia = $r_dep['id_dependencia'];
+       unset($r_dep);
+       $consulta_deps->free();
+       $obra =  $r_poa02['obra'];
+	   $consulta_poaorigen = $conexion->query("SELECT s06c_proyec,s07c_partid,s08c_origen,s11c_compon,s25c_accion from poa02_origen where id_poa02 = ".$obra);
+       $r_poa02_o = $consulta_poaorigen->fetch_assoc();
+	   $s06c_proyec = $r_poa02_o['s06c_proyec'];
+	   $s07c_partid = $r_poa02_o['s07c_partid'];
+	   $s08c_origen = $r_poa02_o['s08c_origen'];
+	   $s11c_compon = $r_poa02_o['s11c_compon'];
+	   $s25c_accion = $r_poa02_o['s25c_accion'];
+       unset($r_poa02_o);
+       $consulta_poaorigen->free();
+       $consulta_edosfin = $conexion->query("SELECT s03c_objeti,s04c_progra,s05c_subpro FROM estados_financieros where
+		s01c_sector = '$sector' and
+		s02c_depend = '$dependencia' and
+		s06c_proyec = '$s06c_proyec' and
+		s07c_partid = '$s07c_partid' and
+		s08c_origen = '$s08c_origen' and
+		s11c_compon = '$s11c_compon' and
+		s25c_accion = '$s25c_accion'");
+		$r_edofin = $consulta_edosfin->fetch_assoc();
+	$eje = $r_edofin["s03c_objeti"];
+	$linea = $r_edofin["s04c_progra"];
+	$estrategia = $r_edofin["s05c_subpro"];
+	unset($r_edofin);
+     $consulta_edosfin->free();
+	$consulta_proyecto = $conexion->query("SELECT no_proyecto,nombre FROM proyectos WHERE id_proyecto = ".$r_poa02['id_proyecto']);
+	$r_pro = $consulta_proyecto->fetch_assoc();
+	$n_proyecto = $r_pro['no_proyecto'];
+	$nombre_proyecto = $r_pro['nombre'];
+	$consxdep = $r_poa02['consxdep'];
+	unset($r_pro);
+        $consulta_proyecto->free();
+	$descripcion = $r_poa02['descripcion'];
+		$ompio = $r_poa02["municipio"];
+        $cons_mpio_fin = $conexion->query("select id_municipio,id_region from municipios where id_finanzas = ".$ompio);
+        $rmpio = $cons_mpio_fin->fetch_assoc();
+        $municipio = $rmpio['id_municipio'];
+        $region = $rmpio['id_region'];
+        unset($rmpio);
+        $cons_mpio_fin->free();
+        $oloc = $r_poa02["localidad"];
+		$cons_localidades = $conexion->query("SELECT id_finanzas,id_marginacion from localidades where id_finanzas = ".$r_poa02["localidad"]." AND id_municipio = ".$ompio);
+		$r_loc = $cons_localidades->fetch_assoc();
+		$marginacion  = $r_loc["id_marginacion"];
+		$finanzas_localidad = $r_loc["id_finanzas"];
+		unset($r_loc);
+		$cons_localidades->free();
+		$f_i = $r_poa02["fecha_inicio"];
+		$f_f = $r_poa02["fecha_fin"];
+		$m_i = substr($f_i,5,2);
 	switch($m_i) {
 	case "01":
 		$m_inicio = 1;
@@ -110,7 +117,7 @@ $m_i=substr($r73['fecha_i'],5,2);
 	$a_i = substr($f_i,7,4);
 	$a_f = substr($f_f,7,4);
 	$m_f = substr($f_f,5,2);
-$m_f=substr($r73['fecha_fin'],5,2);
+
 	switch($m_f) {
 	case "01":
 		$m_fin = 1;
@@ -150,54 +157,124 @@ $m_f=substr($r73['fecha_fin'],5,2);
 		break;
 	}
 
-?>
-<tr>
-    <td><?php echo $r73['sector']; ?></td>
-    <td><?php echo $r73['dependencia']; ?></td>
-    <td><?php echo $r73['obj']; ?></td>
-    <td><?php echo $r73['pro']; ?></td>
-    <td><?php echo $r73['subpro']; ?></td>
-    <td><?php echo $r73['proyecto']; ?></td>
-    <td><?php echo $r73['componente']; ?></td>
-    <td><?php echo $r73['accion']; ?></td>
-    <td><?php echo $r73['obra']; ?></td>
-    <td><?php echo $r73['upla']; ?></td>
-    <td>0</td>
-    <td>&nbsp;</td>
-    <td><?php echo $r73['obra_desc']; ?></td>
-    <td><?php echo $r73['municipio']; ?></td>
-    <td><?php echo $r73['localidad']; ?></td>
+	$ai = substr($f_i,0,4);
+        $af =  substr($f_f,0,4);
+       $modalidad  = $r_poa02["modalidad"];
+       $retencion = $r_poa02["retencion"];
+       $prog_poa =  $r_poa02["programa_poa"];
+       $subprog_poa = $r_poa02["subprograma_poa"];
+       $u_medida =  $r_poa02["u_medida"];
+       $cantidad =  $r_poa02["cantidad"];
+       $ben_h = $r_poa02["ben_h"];
+       $ben_m = $r_poa02["ben_m"];
+        unset($r_poa02);
+        $consulta_poa02->free();
+	$cons_margin = $conexion->query("SELECT descripcion from marginacion where id_marginacion = ".$marginacion);
+    $r_marginacion =  $cons_margin->fetch_array();
+    $marginacion = $r_marginacion[0];
+    $cons_margin->free();
+    $c73[$i] = array(
+    'sec'=>$sector,
+    'dep'=>$dependencia,
+    'obj'=>$eje,
+    'pro'=>$linea,
+     'subpro'=>$estrategia,
+     'proyecto'=>$n_proyecto,
+     "com"=>$s11c_compon,
+     "acc"=>$s25c_accion,
+    "obra"=>$consxdep,
+    "upla"=>$obra,
+    "int"=>0 ,
+    "desproy"=>$nombre_proyecto,
+    "desobra"=>$descripcion,
+            "mun"=>$municipio,
+            "loc"=>$finanzas_localidad,
+            "annioI"=>$ai,
+            "mesI"=>$m_inicio,
+            "annioF"=>$af,
+             "mesF"=>$m_fin,
+            "mod"=>$modalidad,
+            "ret"=>$retencion,
+            "pro_poa"=>$prog_poa,
+            "subpro_poa"=>$subprog_poa,
+             "uni"=>$u_medida,
+              "oficio"=>1,
+                "cantidad"=>$cantidad,
+            "hombres"=>$ben_h,
+                "mujeres"=>$ben_m,
+            "punt"=>1,
+            "prior"=>1,
+            "region"=>$region,
+            "marginalidad"=>$marginacion,
+            "aprob"=>1,
+    "ofasig"=>1,
+    "fecha"=>date('d/m/y'),
+    "idproy"=>0,
+    "usuario"=>698,
+    "fecha1"=>date('d/m/y'),
+    "usr"=>698,
+    "fecha2"=>date('d/m/y')
+           );
 
- <td><?php echo   substr($r73['fecha_i'],0,4); //$a_i; ?></td>
-    <td><?php echo  $m_inicio;  ?></td>
-    <td><?php echo substr($r73['fecha_fin'],0,4); //$a_f; ?></td>
-    <td><?php echo  $m_fin; ?></td>
+    $i = $i+1;
+      }
+      unset($id_oficio);
+        unset($d_of);
+	$detalle_oficio->free();
+    }
+    unset($r_of);
+$limite = count($c73);
 
-    <td><?php echo $r73['modalidad']; ?></td>
-    <td><?php echo $r73['retencion']; ?></td>
-    <td><?php echo $r73['pro_poa']; ?></td>
-    <td><?php echo $r73['subpro_poa']; ?></td>
-    <td><?php echo $r73['u_medida']; ?></td>
-     <td>1</td>
-    <td><?php echo $r73['cantidad']; ?></td>
-    <td><?php echo $r73['ben_h']; ?></td>
-    <td><?php echo $r73['ben_m']; ?></td>
-    <td>0</td>
-    <td>1</td>
-    <td><?php echo $r73['region']; ?></td>
-    <td><?php echo $r73['marginacion']; ?></td>
-    <td>1</td>
-    <td>1</td>
-    <td><?php  print(date('d/m/y')); ?></td>
-    <td>0</td>
-    <td>698</td>
-    <td><?php  print(date('d/m/y')); ?></td>
-    <td>698</td>
-    <td><?php  print(date('d/m/y')); ?></td>
-    </tr>
-   <?php }
-echo "
-</table>";
 
+
+echo "<table width='100%' border='1' cellspacing='0' cellpadding='0'>";
+
+
+for($x=0;$x<$limite;$x++){
+echo "<tr>
+<td>".$c73[$x]['sec']."</td>
+    <td>".$c73[$x]['dep']."</td>
+    <td>".$c73[$x]['obj']."</td>
+     <td>".$c73[$x]['pro']."</td>
+     <td>".$c73[$x]['subpro']."</td>
+     <td>".$c73[$x]['proyecto']."</td>
+     <td>".$c73[$x]["com"]."</td>
+    <td>".$c73[$x]["acc"]."</td>
+            <td>".$c73[$x]["obra"]."</td>
+            <td>".$c73[$x]["upla"]."</td>
+            <td>".$c73[$x]["int"]."</td>
+            <td>".$c73[$x]["desproy"]."</td>
+            <td>".$c73[$x]["desobra"]."</td>
+            <td>".$c73[$x]["mun"]."</td>
+            <td>".$c73[$x]["loc"]."</td>
+            <td>".$c73[$x]["annioI"]."</td>
+            <td>".$c73[$x]["mesI"]."</td>
+            <td>".$c73[$x]["annioF"]."</td>
+             <td>".$c73[$x]["mesF"]."</td>
+            <td>".$c73[$x]["mod"]."</td>
+            <td>".$c73[$x]["ret"]."</td>
+            <td>".$c73[$x]["pro_poa"]."</td>
+            <td>".$c73[$x]["subpro_poa"]."</td>
+             <td>".$c73[$x]["uni"]."</td>
+              <td>".$c73[$x]["oficio"]."</td>
+                <td>".$c73[$x]["cantidad"]."</td>
+            <td>".$c73[$x]["hombres"]."</td>
+                <td>".$c73[$x]["mujeres"]."</td>
+            <td>".$c73[$x]["punt"]."</td>
+            <td>".$c73[$x]["prior"]."</td>
+            <td>".$c73[$x]["region"]."</td>
+            <td>".$c73[$x]["marginalidad"]."</td>
+            <td>".$c73[$x]["aprob"]."</td>
+    <td>".$c73[$x]["ofasig"]."</td>
+    <td>".$c73[$x]["fecha"]."</td>
+    <td>".$c73[$x]["idproy"]."</td>
+    <td>".$c73[$x]["usuario"]."</td>
+    <td>".$c73[$x]["fecha1"]."</td>
+    <td>".$c73[$x]["usr"]."</td>
+    <td>".$c73[$x]["fecha2"]."</td>
+    </tr>";
+}
+
+echo "</table>";
 }
 ?>
