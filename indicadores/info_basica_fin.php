@@ -17,10 +17,10 @@ sind.sentido as sentido,
 indpro.medio_verifica_fin as medio,
 supuesto_fin as supuesto,
 indpro.fin_observaciones as observaciones
-FROM proyectos pr
+FROM proyectos_2014 pr
 inner join dependencias dep on(pr.id_dependencia = dep.id_dependencia)
 inner join sectores sc on(dep.id_sector = sc.id_sector)
-inner join indicadores_proyecto as indpro on (pr.id_proyecto=indpro.id_proyecto)
+inner join indicadores_proyecto_2014 as indpro on (pr.id_proyecto=indpro.id_proyecto)
 inner join tipo_indicador ti on(indpro.tipo_fin = ti.id_tipo_indicador)
 inner join dimension_indicador dimind on (indpro.dimension_fin = dimind.id_dimension)
 inner join frecuencia_indicador as fi on (indpro.frecuencia_fin = fi.id_frecuencia)
