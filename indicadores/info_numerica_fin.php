@@ -8,7 +8,7 @@ ipro.fin_calculado as calculado,
 ipro.fin_resultado as resultado,
 pr.no_proyecto as num_proyecto,
 pr.nombre as proyecto
-FROM indicadores_proyecto ipro
+FROM indicadores_proyecto_2014 ipro
 INNER JOIN proyectos pr on (pr.id_proyecto = ipro.id_proyecto)
 WHERE ipro.id_proyecto = ".$idproyecto;
 
