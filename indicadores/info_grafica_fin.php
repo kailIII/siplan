@@ -11,10 +11,8 @@ pr.no_proyecto as num_proyecto,
 pr.nombre as proyecto,
 indpro.nombre_fin as nombre,
 indpro.fin_resultado as resultado
-
-FROM indicadores_proyecto indpro
-inner join proyectos as pr on (pr.id_proyecto=indpro.id_proyecto)
-
+FROM indicadores_proyecto_2014 indpro
+inner join proyectos_2014 as pr on (pr.id_proyecto=indpro.id_proyecto)
 WHERE indpro.id_proyecto = ".$_GET['idproyecto'];
 
 $ex_consulta = $mysqli->query($consulta);
