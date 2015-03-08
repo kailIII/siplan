@@ -174,6 +174,18 @@ location.href="index.html";
         include("administrador/adm/usuarios/tabla_usuarios.php");
         break;
 
+        case md5(48):
+        include("administrador/adm/usuarios/activar_usuario.php");
+        break;
+
+        case md5(49):
+        include("administrador/adm/usuarios/eliminar_usuario.php");
+        break;
+
+        case md5(50):
+        include("administrador/adm/usuarios/editar_usuario.php");
+        break;
+
         case md5(90):
 		include("administrador/proyectos/info_componente.php");
 		break;
