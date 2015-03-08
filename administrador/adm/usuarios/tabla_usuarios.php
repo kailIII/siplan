@@ -12,18 +12,9 @@
                                     </thead>
                                     <tbody>
                                         <?php
-/*
-                                            $conexionn = mysql_connect("localhost", "root", "tr15t4n14");
-                                               if(!$conexionn)
-                                                   echo 'Error al conectarse a la base de datos';
-
-                                            $db = mysql_select_db("siplan2015", $conexionn);
-
-                                            if(!$db)
-                                                   echo 'Error al seleccionar a la base de datos';*/
                                             $conexion->query('SET NAMES utf8');
 
-$sql = "select usuarios.id_usuario, usuarios.usuario, usuarios.nombre, usuarios.activo, dependencias.nombre id_dependencia from usuarios, dependencias where usuarios.id_dependencia = dependencias.id_dependencia;";
+$sql = "select usuarios.id_usuario, usuarios.usuario, usuarios.nombre, usuarios.activo, dependencias.nombre id_dependencia from usuarios, dependencias where usuarios.id_dependencia = dependencias.id_dependencia order by id_usuario;";
                                             $datos = $conexion->query($sql);
 
                                             if(!$datos)
@@ -32,7 +23,16 @@ $sql = "select usuarios.id_usuario, usuarios.usuario, usuarios.nombre, usuarios.
 
                                                     while($row = $datos->fetch_assoc()){
 
-echo "<tr><td style='width:10%;'>".$row['id_usuario']."</td><td style='width:15%;'>".$row['usuario']."</td><td>".$row['nombre']."</td><td>                   ".$row['id_dependencia']."</td><td class='text-center' style='width:3%;'>".($row['activo'] == 1 ? 'Si' : 'No')."</td><td class='text-center'><a href='#' title ='Editar' class='glyphicon glyphicon-pencil' style='margin-right: 10px;'></a><a href='#' title='Cambiar Contraseña' class='glyphicon glyphicon-lock' style='margin-right: 10px;'></a><a href='#' title='Activar/Desactivar' class='glyphicon glyphicon-off' style='margin-right: 10px;'></a><a href='#' title='Eliminar' class='glyphicon glyphicon-remove'></a></td></tr>";
+echo "<tr>
+<td style='width:10%;'>".$row['id_usuario']."</td><td style='width:15%;'>".$row['usuario']."</td>
+<td>".$row['nombre']."</td><td>".$row['id_dependencia']."</td>
+<td class='text-center' style='width:3%;'>".($row['activo'] == 1 ? 'Si' : 'No')."</td>
+<td class='text-center'>
+    <a href='main.php?token=".md5(50)."&id=".$row['id_usuario']."' title ='Editar' class='glyphicon glyphicon-pencil' style='margin-right: 10px;'></a>
+    <a href='#' title='Cambiar Contraseña' class='glyphicon glyphicon-lock' style='margin-right: 10px;'></a>
+    <a href='main.php?token=".md5(48)."&id=".$row['id_usuario']."' title='Activar/Desactivar' class='glyphicon glyphicon-off'             style='margin-right: 10px;'></a>
+    <a href='main.php?token=".md5(49)."&id=".$row['id_usuario']."' title='Eliminar' class='glyphicon glyphicon-remove'></a>
+</td></tr>";
                                                     }
                                                 $datos->free();
 
