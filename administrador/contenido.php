@@ -186,6 +186,14 @@ location.href="index.html";
         include("administrador/adm/usuarios/editar_usuario.php");
         break;
 
+        case md5(51):
+        include("administrador/adm/usuarios/cambiar_contrasena_usuario.php");
+        break;
+
+        case md5(52):
+        include("administrador/adm/usuarios/agregar_usuario.php");
+        break;
+
         case md5(90):
 		include("administrador/proyectos/info_componente.php");
 		break;
