@@ -3,7 +3,7 @@
     $usuario = $conexion->query('SELECT * from usuarios where id_usuario = '.$_GET['id']);
     $row = $usuario->fetch_assoc();
 ?>
-
+<h2><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edición de Usuarios</h2>
 <br>
 <form method="post" action="#" name="form_editar">
     <table style="margin: 0 auto">
@@ -18,14 +18,14 @@
             <td><b>Nombre:&nbsp;</b></td>
             <td><input type="text" name="nombre" value="<?php echo $row['nombre']; ?>" required></td>
         </tr>
-        <tr>
+        <!--tr>
             <td><b>Contraseña:&nbsp;</b></td>
             <td><input type="password" name="contrasena" ></td>
         </tr>
         <tr>
             <td><b>Repetir Contraseña:&nbsp;</b></td>
             <td><input type="password" name="contrasena_rep"></td>
-        </tr>
+        </tr-->
         <tr>
             <td><b>Dependencia:&nbsp;</b></td>
             <td>
@@ -47,7 +47,7 @@
         <tr>
             <td></td>
             <td class="text-right">
-                <br><input type="submit" value="Guardar" onclick="confirmaGuardar()">
+                <br><input type="submit" value="Guardar" onclick="confirmaGuardar()" class="btn btn-default">
             </td>
         </tr>
     </table>
