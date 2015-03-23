@@ -3,7 +3,7 @@
     $usuario = $conexion->query('SELECT usuario, activo from usuarios where id_usuario = '.$_GET['id']);
     $row = $usuario->fetch_assoc();
 ?>
-
+<h2><span class="glyphicon glyphicon-off"></span>&nbsp;Bloqueo de Usuarios</h2>
 <br>
 <form method="post" action="#">
     <table style="margin: 0 auto">
@@ -28,7 +28,7 @@
         <tr>
             <td></td>
             <td class="text-right">
-                <br><input type="submit" value="Guardar" name="guardar">
+                <br><input type="submit" value="Guardar" name="guardar" class="btn btn-default">
             </td>
         </tr>
     </table>
