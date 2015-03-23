@@ -1,3 +1,12 @@
+<h2><span class="glyphicon glyphicon-user"></span>&nbsp;Tabla Usuarios</h2>
+
+<ul class="nav nav-pills">
+ <li><a href="main.php?token=<?php echo md5(52); ?>"><span class="glyphicon glyphicon-plus"></span>&nbsp;Agregar Usuario</a></li>
+<li><a href="#" target="_blank"><span class="glyphicon glyphicon-print"></span>&nbsp;Imprimir</a></li>
+  <li><a href="#" target="_blank"><span class="glyphicon glyphicon-export"></span>&nbsp;Exportar a XLS</a></li>
+</ul>
+
+
 <br>
 <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info" style="width: 90%; margin: 0 auto;">
 <thead>
@@ -28,9 +37,10 @@ echo "<tr>
 <td>".$row['nombre']."</td><td>".$row['id_dependencia']."</td>
 <td class='text-center' style='width:3%;'>".($row['activo'] == 1 ? 'Si' : 'No')."</td>
 <td class='text-center'>
-    <a href='main.php?token=".md5(50)."&id=".$row['id_usuario']."' title ='Editar' class='glyphicon glyphicon-pencil' style='margin-right: 10px;'></a>
-    <a href='#' title='Cambiar Contraseña' class='glyphicon glyphicon-lock' style='margin-right: 10px;'></a>
-    <a href='main.php?token=".md5(48)."&id=".$row['id_usuario']."' title='Activar/Desactivar' class='glyphicon glyphicon-off'             style='margin-right: 10px;'></a>
+    <a href='main.php?token=".md5(50)."&id=".$row['id_usuario']."' title ='Editar' class='glyphicon glyphicon-pencil'
+        style='margin-right: 10px;'></a>
+    <a href='main.php?token=".md5(51)."&id=".$row['id_usuario']."' title='Cambiar Contraseña' class='glyphicon glyphicon-lock'                  style='margin-right: 10px;'></a>
+    <a href='main.php?token=".md5(48)."&id=".$row['id_usuario']."' title='Activar/Desactivar' class='glyphicon glyphicon-off'                    style='margin-right: 10px;'></a>
     <a href='main.php?token=".md5(49)."&id=".$row['id_usuario']."' title='Eliminar' class='glyphicon glyphicon-remove'></a>
 </td></tr>";
                                                     }
